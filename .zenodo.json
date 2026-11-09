@@ -1,0 +1,18 @@
+{
+  "title": "Constructing a degree-reducing parity batch from explicit Boolean polynomials",
+  "description": "Working research manuscript archive containing the PDF, LaTeX source and document checks. An attributed algorithmic corollary of Zhang's generic radical identity and the Moshkovitz-Zhu rank comparison constructs one degree-reducing parity batch from explicit squarefree algebraic normal form. Finite-field specialization and binary intersection give exact all-coset degree reduction on a success event of probability at least 1-delta, with a charged logarithmic codimension loss. Characteristic-two determinant evaluation gives polynomial construction time in the ambient dimension and explicit description length. Full recursive construction and unrestricted XOR log-rank remain unresolved. No established priority, independent peer review, formal certification or implementation is claimed. OpenAI Codex assisted derivation, source comparison, drafting and package preparation.",
+  "version": "0.1.0",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "creators": [
+    {
+      "name": "Fredriksen, Daniel",
+      "affiliation": "Quantyra Inc.",
+      "orcid": "0009-0002-9123-7435"
+    }
+  ],
+  "access_right": "open",
+  "license": "CC-BY-4.0",
+  "language": "eng",
+  "keywords": ["Boolean polynomials", "parity decision trees", "degree reduction", "finite fields", "Fourier sparsity", "XOR log-rank"]
+}

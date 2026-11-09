@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-09",
+  "scope": "Actual assistant inspection of all rendered manuscript pages; document layout only",
+  "pdf_sha256": "ba03a19f844a81f87a5a01331b67eaf33858cdbad1a03d01e25ebfd747ce2a88",
+  "pages_inspected": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "verdict": "PASS_DOCUMENT_LAYOUT",
+  "observations": [
+    "All six pages inspected at 100 dpi; equations, theorem continuations, control table and references are legible.",
+    "No clipping, overlapping text or missing glyphs observed.",
+    "Bibliography starts on a dedicated final page.",
+    "Compiler font-configuration message retained in build receipt; rendered output shows no associated defect."
+  ],
+  "render_sha256": {
+    "1": "5fc2bc188542018714d4e7e3f7beb71aae152711ec9ced0c916d3e7b5a1ace7b",
+    "2": "a31901c6186b4d006e6a429844849864c91028e6c54a33bbe453d19b3515aa0d",
+    "3": "ac7a8c65427c128b66d18ce2a2d2e0c5032bb0d8e3ee2f6df39f145042c72b71",
+    "4": "76dd71c1b69af28d09bcbfcb50ba3c0e4e141aefda226b0b4b0acb84e369cd97",
+    "5": "c0e2170fc181f6c5516c2918783c715c5650b4504d4e4413b9f818f238852f83",
+    "6": "8e5b99530f6fe75c65eb973e2546b4de3a9c3a59d11fa0fd07252eef06d4bb7c"
+  }
+}

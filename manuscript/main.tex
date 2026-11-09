@@ -1,0 +1,247 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Constructing a degree-reducing parity batch from explicit Boolean polynomials},pdfauthor={Daniel Fredriksen}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}\newtheorem{remark}[theorem]{Remark}
+\newcommand{\F}{\mathbb F}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\supp}{\operatorname{supp}}
+\title{Constructing a degree-reducing parity batch\\from explicit Boolean polynomials}
+\author{Daniel Fredriksen\\\small Quantyra Inc.\\\small\href{https://orcid.org/0009-0002-9123-7435}{ORCID: 0009-0002-9123-7435}}
+\date{November 9, 2026\\\small Working draft, version 0.1.0}
+\makeatletter
+\renewcommand{\@maketitle}{%
+  \begin{center}
+    {\LARGE\@title\par}\vskip 0.8em
+    {\large\lineskip .5em\begin{tabular}[t]{c}\@author\end{tabular}\par}
+    \vskip 0.6em{\small\@date\par}
+  \end{center}\vskip 0.7em}
+\makeatother
+\begin{document}
+\maketitle
+\begin{abstract}
+We give an algorithmic corollary of structural results of Zhang and Moshkovitz--Zhu. Given the explicit squarefree algebraic normal form of a degree-$d$ polynomial $p$ on $\F_2^n$, with $d\ge3$, a randomized algorithm constructs a binary subspace on every coset of which the degree drops. For $f=(-1)^p$, Fourier spectral norm $B$, and error parameter $\delta$, the codimension is at most
+$\min\{n,\,2^{2d-3}\lceil\log_2(4n(d-2)/\delta)\rceil\log_2 B\}$.
+The algorithm runs in time polynomial in $n$, the explicit input length and $\log(1/\delta)$, and succeeds with probability at least $1-\delta$.
+It samples a contraction over a finite extension field, computes its kernel and intersects that kernel with binary space. A maximal-minor argument preserves the imported vanishing identity; determinant evaluation in characteristic two avoids exponential finite-difference enumeration. All field, randomness and bit costs are charged. The result concerns one batch, with an additional logarithmic codimension loss; efficient full recursion and the unrestricted XOR log-rank conjecture remain unresolved.
+\end{abstract}
+
+\section{Statement and relationship to prior work}
+All logarithms are base two unless written $\ln$. For $f:\F_2^n\to\{-1,1\}$ let
+\[
+ \widehat f(\xi)=2^{-n}\sum_x f(x)(-1)^{\xi\cdot x},\qquad
+ B=\|\widehat f\|_1,\qquad s=|\supp\widehat f|.
+\]
+A parity query asks for a binary linear form in the unknown input. Independent equations for a subspace of codimension $r$ specify $r$ such queries; their answers identify a coset.
+Degree throughout means the degree of the unique squarefree algebraic normal form (ANF) over $\F_2$, not real Fourier degree.
+
+The degree-reduction approach to parity decision trees predates this note~\cite{TWXZ}.
+Zhang~\cite{Z26} proves an existence bound of order $1+4^d\log s$, using a generic contraction radical and dimension-preserving descent. Remark~3.17 of that work expressly leaves construction time open. We replace the descent step by a directly computable binary intersection, accepting a logarithmic loss.
+The generic-rank comparison used below is due to Moshkovitz and Zhu~\cite{MZ}.
+The contribution here is the explicit input-access, specialization and resource analysis of this one-step consequence. No priority claim for the combination is made.
+
+\begin{theorem}\label{thm:main}
+Let $p\in\F_2[x_1,\ldots,x_n]$ be given by its $L$ distinct squarefree nonzero monomials, of actual degree $3\le d\le n$. Let $0<\delta\le1/4$ be rational and let $S$ be the encoding length, including $\delta$. Put
+\[
+ k=\left\lceil\log\frac{4n(d-2)}{\delta}\right\rceil .
+\]
+There is a randomized algorithm whose worst-case bit cost is polynomial in $n$, $S$ and $\log(1/\delta)$. It returns a basis matrix $C$ for a binary subspace $U$ and independent equations $Hx=0$ for $U$, or declares failure. With probability at least $1-\delta$ it returns matrices satisfying, simultaneously for every $a\in\F_2^n$,
+\begin{align}
+ \deg_{\F_2}\bigl(p(a+Cz)\bigr)&\le d-1,\label{eq:drop}\\
+ r:=\rank_{\F_2}H=\codim U
+ &\le \min\{n,k\,2^{2d-3}\log B\}
+ \le \min\{n,k\,2^{2d-4}\log s\}.\label{eq:cost}
+\end{align}
+The degree guarantee is exact on success. Both declared failure and incorrect output count against $\delta$. Space is polynomial and the output length is $O(n^2)$ bits. The algorithm needs no Fourier data, $B$, $s$, or generic-rank oracle.
+\end{theorem}
+
+The input model is essential. Polynomial time includes polynomial dependence on the ambient dimension $n$; $S$ alone need not describe all unused variables. This is an explicit ANF input, not an arbitrary succinct arithmetic or Boolean circuit. The codimension estimate remains exponentially dependent on $d$, even though the construction time does not.
+
+\section{The imported structural interface}
+Define $\Delta_h p(x)=p(x+h)+p(x)$ and
+\[
+ T(h_1,\ldots,h_d)=\Delta_{h_1}\cdots\Delta_{h_d}p(0).
+\]
+Formal evaluation uses the supplied squarefree polynomial over any extension of $\F_2$. The form $T$ is symmetric, multilinear and alternating. Let $h=d-2$, let $y_1,\ldots,y_h$ be independent formal $n$-vectors, and put
+\[
+ K=\F_2(y_1,\ldots,y_h),\quad
+ N(y)_{ij}=T(y_1,\ldots,y_h,e_i,e_j),\quad
+ R=\rank_K N,\quad W=\ker_K N.
+\]
+The needed external inputs are
+\begin{equation}\label{eq:imports}
+ T(K^n,W,\ldots,W)=0,\qquad
+ R\le 2^{d-2}M,
+\end{equation}
+where the identity has $d-1$ copies of $W$, and $M$ is the maximum rank of $N$ at binary anchors.
+The first statement is Zhang's Theorem~3.12~\cite{Z26}. The second is the generic/max-rank inequality of Moshkovitz--Zhu~\cite{MZ}, applied to $h=d-2$ homogeneous multilinear blocks over $\F_2$. Its factor is $2^h$ and it has no large-field restriction. We import these structural statements rather than present independent proofs of them.
+
+For completeness, the remaining quantitative connection is elementary.
+At binary anchors, $g=\Delta^\times_{y_1}\cdots\Delta^\times_{y_h}f$ is a quadratic phase, where $\Delta^\times_u f(x)=f(x+u)f(x)$. Its polar matrix is $N(y)$.
+If the polar rank is $\rho$, quadratic normal form gives $\|\widehat g\|_1=2^{\rho/2}$: each independent quadratic pair contributes a factor of two and affine terms only translate the spectrum.
+Translation preserves spectral norm and multiplication is Fourier convolution. Hence
+\[
+ 2^{\rho/2}\le B^{2^h},\qquad
+ M\le2^{d-1}\log B,\qquad R\le2^{2d-3}\log B.
+\]
+Parseval and Cauchy--Schwarz give $B\le\sqrt{s}$.
+These inequalities are used in the analysis; their parameters are never computed by the algorithm.
+
+\section{Specialization and binary equations}
+\begin{lemma}\label{lem:special}
+Let $N(y)$ be a polynomial matrix over $\F_2$ of generic rank $R$. Suppose its generic kernel $W$ satisfies the first identity in~\eqref{eq:imports} for a fixed multilinear form $T$ over $\F_2$.
+For any field extension $E$ and any specialization $a$ with $\rank_E N(a)=R$, the kernel $W_a=\ker_E N(a)$ satisfies
+$T(E^n,W_a,\ldots,W_a)=0$.
+\end{lemma}
+\begin{proof}
+If $R=0$, the matrix is identically zero and the assumed identity gives the claim. Otherwise choose $R$ rows and columns with submatrix $P$ such that $D=\det P$ is nonzero at $a$. Reorder columns and write those rows as $[P\ Q]$. Over the localization $\F_2[y,1/D]$, the columns of
+\[
+ V=\begin{bmatrix}-P^{-1}Q\\I_{n-R}\end{bmatrix}
+\]
+are a basis of the generic kernel. They solve the selected equations, whose rows span the generic row space, so $NV=0$. Every entry has denominator dividing $D$.
+For standard basis vectors $e_i$ and columns of $V$, multiply each identity
+$T(e_i,V_{j_1},\ldots,V_{j_{d-1}})=0$ by $D^{d-1}$.
+It becomes a polynomial identity, which can be specialized at $a$. Since $D(a)\ne0$, the original identity also holds there.
+The $n-R$ independent columns of $V(a)$ solve $N(a)V(a)=0$ and span its entire kernel. Multilinearity proves the result. If $R=n$, the kernel has dimension zero and the assertion is immediate.
+\end{proof}
+
+This establishes preservation at every full-generic-rank point. No further denominator condition or union over pivot charts is needed.
+For probability analysis only, fix any nonzero generic $R$-minor $D$ of $N$ (use $D=1$ if $R=0$). Its degree is at most $R(d-2)\le n(d-2)$.
+For independent uniform anchors in $E=\F_{2^k}$, the polynomial zero bound gives
+\begin{equation}\label{eq:rankprob}
+ \Pr[\rank N(a)<R]\le\Pr[D(a)=0]
+ \le\frac{n(d-2)}{2^k}\le\delta/4.
+\end{equation}
+The zero bound is the usual induction from the univariate root bound. The algorithm does not find $D$, determine $R$, or test this event. All larger minors vanish identically, so no specialization has rank greater than $R$.
+
+For $A=N(a)$, select a row basis over $E$, of size $r_E$. Expand its entries in a fixed binary basis of $E$. For binary vectors $x$, each $E$-linear equation is exactly equivalent to at most $k$ binary equations. Binary elimination produces $H$ and $C$ with
+\[
+ U=\ker_{\F_2}H=\ker_E A\cap\F_2^n,\qquad
+ \codim U\le\min\{n,kr_E\}\le\min\{n,kR\}.
+\]
+Thus~\eqref{eq:cost} holds on every nonfailure output, even on exceptional rank samples. On the full-rank event Lemma~\ref{lem:special} gives $T(U^d)=0$.
+To obtain~\eqref{eq:drop}, each degree-$d$ coefficient of the Boolean restriction $p(a+Cz)$ is a $d$-fold difference in the corresponding distinct columns of $C$. It equals $T$ on those columns, independently of $a$, and therefore vanishes. The restriction has degree at most $d$ before this argument. If $\dim U<d$, no such coefficient exists.
+
+\section{Polynomial evaluation and a capped algorithm}
+\begin{lemma}\label{lem:det}
+If $p=\sum_I\prod_{i\in I}x_i$ is squarefree of degree $d$, then over any field of characteristic two,
+\begin{equation}\label{eq:det}
+ T(h_1,\ldots,h_d)
+ =\sum_{|I|=d}\det\bigl[(h_j)_{i_\ell}\bigr]_{j,\ell=1}^d,
+ \qquad I=\{i_1,\ldots,i_d\}.
+\end{equation}
+Consequently one value of $T$ can be computed in $O(Ld^3)$ field operations.
+\end{lemma}
+\begin{proof}
+Expand the subset formula for the $d$ differences of one monomial. Every term omitting a direction occurs an even number of times and cancels. A monomial of degree less than $d$ contributes nothing.
+For a degree-$d$ monomial, each surviving term uses every direction exactly once, so terms are indexed by permutations. This is the permanent of the displayed matrix, equal to its determinant in characteristic two. Summing over monomials and using Gaussian elimination proves the cost.
+\end{proof}
+
+Only the listed degree-$d$ monomials are needed. In particular, neither $2^d$ subset enumeration nor construction of an $n^d$ tensor is necessary.
+Let
+\[
+ b=\lceil\log(2/\delta)\rceil,\qquad t=2kb.
+\]
+The following algorithm has fixed caps; all arithmetic is exact.
+\begin{enumerate}
+\item Read and check the explicit squarefree ANF and its actual degree. Compute $k,b,t$ using integer comparisons with the rational input.
+\item Try at most $t$ independently uniform monic degree-$k$ binary polynomials $g$, using $k$ fair bits per trial. Test irreducibility by checking
+$\gcd(g,X^{2^j}-X)=1$ for $1\le j\le\lfloor k/2\rfloor$, using repeated squaring modulo $g$. Keep the first passing polynomial; if none passes, declare failure.
+\item Work in $E=\F_2[X]/(g)$ with its polynomial basis. Draw $d-2$ uniform independent anchors in $E^n$, using fresh random bits.
+\item Form $A_{ij}=T(a_1,\ldots,a_{d-2},e_i,e_j)$ by~\eqref{eq:det}. Compute a row basis over $E$, expand it into binary equations, and compute $H$ and $C$ by binary elimination. Return these matrices without retrying on the basis of sampled rank.
+\end{enumerate}
+
+The field test is exact: a reducible degree-$k$ polynomial has an irreducible factor of degree $j\le k/2$, which divides $X^{2^j}-X$. An irreducible degree-$k$ polynomial has none.
+Our parameters ensure $k\ge6$. At least a $1/(2k)$ fraction of monic degree-$k$ binary polynomials are irreducible. To see this, in $\F_{2^k}$ the elements of smaller degree lie in proper subfields. Their number is at most
+$\sum_{j=1}^{\lfloor k/2\rfloor}2^j\le2^{k-1}$.
+Each irreducible degree-$k$ polynomial accounts for $k$ of the remaining elements. This is a counting argument, not field enumeration.
+Failure of all $t$ trials has probability at most
+$\exp(-t/(2k))=\exp(-b)\le2^{-b}\le\delta/2$.
+Conditional on any verified field, fresh anchors satisfy~\eqref{eq:rankprob}.
+The total bad probability is at most $3\delta/4\le\delta$.
+
+\begin{proposition}\label{prop:bits}
+Besides polynomial input-reading and validation overhead, the algorithm uses at most
+\begin{equation}\label{eq:bits}
+ O\!\left(tk^4+(n^2Ld^3+n^3)k^3+kn^3\right)
+\end{equation}
+arithmetic bit operations with indexed storage. It uses at most $tk+(d-2)nk$ random bits and polynomial working space. Ordinary sequential access can also be charged while preserving a polynomial bit-time bound.
+\end{proposition}
+\begin{proof}
+Schoolbook repeated squaring and polynomial gcd give the deliberately loose $O(k^4)$ bound per field trial. Field addition and multiplication cost at most $O(k^2)$ bits; inversion by exponentiation or polynomial Euclid fits in $O(k^3)$.
+Lemma~\ref{lem:det} computes $n^2$ entries in $O(n^2Ld^3)$ field operations. Row elimination costs $O(n^3)$ such operations. Expanding rows gives at most $kn$ binary equations of length $n$; elimination and a nullspace basis cost $O(kn^3)$ bit operations.
+The trial and anchor bit counts are explicit.
+Store one trial polynomial, all anchors, the two elimination matrices and one determinant workspace. A conservative space bound is $O(S+n^2k+ndk+d^2k+k^2+b)$ bits.
+Address decoding or a sequential scan of these polynomial-size arrays adds only polynomial overhead. Since $d\le n$, $L$ is bounded by the explicit description length and $k,b=O(\log(nd/\delta))$, these are polynomial costs in the parameters stated in Theorem~\ref{thm:main}.
+\end{proof}
+
+This proves Theorem~\ref{thm:main}. It supplies an algorithm and resource proof, not an implementation or performance benchmark.
+
+\section{Controls and limitations}
+Write $x_I=\prod_{i\in I}x_i$. Four exact controls are:
+\begin{center}
+\begin{tabular}{lccc}
+\hline
+Polynomial & Anchors & Generic rank & Binary kernel\\
+\hline
+$x_{123}$ & $e_1$ & $2$ & $\langle e_1\rangle$\\
+$x_{123}+x_{456}$ & $e_1+e_4$ & $4$ & $\langle e_1,e_4\rangle$\\
+$x_{123}+x_{145}$ & $e_1$ & $4$ & $\langle e_1\rangle$\\
+$x_{1234}+x_{1256}$ & $e_1,e_2$ & $4$ & $\langle e_1,e_2\rangle$\\
+\hline
+\end{tabular}
+\end{center}
+The contractions attain these ranks by nonsingular alternating pairs.
+Matching generic upper bounds follow from alternating rank in dimensions
+three and five, the two independent three-dimensional blocks in the second
+example, and the two independent generic anchors in the radical in the
+quartic example. The listed kernels lower degree on every coset.
+Adding terms of degree at most $d-1$ leaves $T$ unchanged and preserves the
+target. In the disjoint-cubic example, contraction only at $e_1$ has rank
+two and leaves the second cubic intact: nonzero sampled rank is insufficient.
+
+The field-to-binary loss is real. In the first cubic, take an anchor
+$(1,\alpha,0)$ with $\alpha\in E\setminus\F_2$.
+The extension-field rank is two and the kernel is $E(1,\alpha,0)$, but its binary intersection is zero. Binary codimension is three, not two. This does not establish sharpness of the factor $k$.
+Zero anchors give rank zero and can fail degree reduction; these are covered by the exceptional event.
+
+The estimate is nonvacuous when
+$4^d\log s\log(nd/\delta)=o(n)$.
+This regime need not arise by adjoining unused variables: the product of three parities on disjoint growing variable blocks depends on every variable, has degree three, sparsity eight and at most $n^3$ ANF monomials.
+The input cost remains paid.
+
+The construction does not preserve a compact ANF under repeated affine restrictions. An unreduced formal circuit is not automatically a replacement: $z^2+z$ is zero on $\F_2$ but not on an extension field.
+Full recursion requires representation, degree-detection, leaf-computation and accumulated-error analysis. A guarantee for one randomized batch also differs from a globally correct sampled deterministic tree.
+The known existential query bound is not improved, and no general quantum-simulation or BPP-versus-BQP conclusion follows.
+
+\paragraph{Disclosure and status.}
+OpenAI Codex assisted with derivation, source comparison, drafting and document preparation. No independent peer review or formal certification is claimed. This working draft presents an attributed algorithmic corollary; priority and publication significance are not established.
+
+\clearpage
+\begin{thebibliography}{9}
+\bibitem{Z26}
+Shengyu Zhang.
+\emph{Parity Decision Trees of Depth $O(4^d\log\|\widehat f\|_1)$ for Boolean Functions $f$ of $\F_2$-Degree $d$}.
+Preprint, November 2, 2026.
+\href{https://arxiv.org/abs/2611.03452v1}{arXiv:2611.03452v1}.
+
+\bibitem{MZ}
+Guy Moshkovitz and Daniel G. Zhu.
+\emph{Schur complements for tensors and multilinear commutative rank}.
+Preprint, March 11, 2026.
+\href{https://arxiv.org/abs/2603.11038v1}{arXiv:2603.11038v1}.
+
+\bibitem{TWXZ}
+Hing Yin Tsang, Chung Hoi Wong, Ning Xie and Shengyu Zhang.
+\emph{Fourier sparsity, spectral norm, and the Log-rank conjecture}.
+Proceedings of FOCS, 2013.
+\href{https://arxiv.org/abs/1304.1245}{arXiv:1304.1245}.
+\end{thebibliography}
+\end{document}

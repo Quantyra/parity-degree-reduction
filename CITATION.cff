@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "Please cite the working manuscript in preferred-citation; no DOI or release has been issued."
+type: software
+title: "Constructing a degree-reducing parity batch from explicit Boolean polynomials: manuscript archive"
+version: 0.1.0
+authors:
+  - family-names: Fredriksen
+    given-names: Daniel
+    affiliation: Quantyra Inc.
+    orcid: https://orcid.org/0009-0002-9123-7435
+license: CC-BY-4.0
+repository-code: https://github.com/Quantyra/parity-degree-reduction
+url: https://github.com/Quantyra/parity-degree-reduction
+keywords:
+  - Boolean polynomials
+  - parity decision trees
+  - degree reduction
+  - finite fields
+  - Fourier sparsity
+preferred-citation:
+  type: article
+  title: "Constructing a degree-reducing parity batch from explicit Boolean polynomials"
+  authors:
+    - family-names: Fredriksen
+      given-names: Daniel
+      affiliation: Quantyra Inc.
+      orcid: https://orcid.org/0009-0002-9123-7435
+  year: 2026
+  notes: "Working draft, version 0.1.0; not a released or peer-reviewed publication."
+  url: https://github.com/Quantyra/parity-degree-reduction/blob/main/manuscript/main.pdf
