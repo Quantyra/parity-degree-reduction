@@ -4,7 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,microtype}
 \usepackage[hidelinks]{hyperref}
-\hypersetup{pdftitle={Constructing a degree-reducing parity batch from explicit Boolean polynomials},pdfauthor={Daniel Fredriksen}}
+\hypersetup{pdftitle={Degree reduction and recursive parity queries for explicit Boolean polynomials},pdfauthor={Daniel Fredriksen}}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -13,9 +13,9 @@
 \newcommand{\rank}{\operatorname{rank}}
 \newcommand{\codim}{\operatorname{codim}}
 \newcommand{\supp}{\operatorname{supp}}
-\title{Constructing a degree-reducing parity batch\\from explicit Boolean polynomials}
+\title{Degree reduction and recursive parity queries\\for explicit Boolean polynomials}
 \author{Daniel Fredriksen\\\small Quantyra Inc.\\\small\href{https://orcid.org/0009-0002-9123-7435}{ORCID: 0009-0002-9123-7435}}
-\date{November 9, 2026\\\small Working draft, version 0.1.0}
+\date{November 9, 2026\\\small Preprint, version 0.2.0}
 \makeatletter
 \renewcommand{\@maketitle}{%
   \begin{center}
@@ -30,7 +30,7 @@
 We give an algorithmic corollary of structural results of Zhang and Moshkovitz--Zhu. Given the explicit squarefree algebraic normal form of a degree-$d$ polynomial $p$ on $\F_2^n$, with $d\ge3$, a randomized algorithm constructs a binary subspace on every coset of which the degree drops. For $f=(-1)^p$, Fourier spectral norm $B$, and error parameter $\delta$, the codimension is at most
 $\min\{n,\,2^{2d-3}\lceil\log_2(4n(d-2)/\delta)\rceil\log_2 B\}$.
 The algorithm runs in time polynomial in $n$, the explicit input length and $\log(1/\delta)$, and succeeds with probability at least $1-\delta$.
-It samples a contraction over a finite extension field, computes its kernel and intersects that kernel with binary space. A maximal-minor argument preserves the imported vanishing identity; determinant evaluation in characteristic two avoids exponential finite-difference enumeration. All field, randomness and bit costs are charged. The result concerns one batch, with an additional logarithmic codimension loss; efficient full recursion and the unrestricted XOR log-rank conjecture remain unresolved.
+It samples a contraction over a finite extension field, computes its kernel and intersects that kernel with binary space. A maximal-minor argument preserves the imported vanishing identity; determinant evaluation in characteristic two avoids exponential finite-difference enumeration. We also construct an on-demand recursive parity policy from the original ANF and a compact affine map. For every fixed hidden input, with probability at least $1-\delta$, it evaluates $p$ correctly using $\min\{n,O(1+4^d\log s\log(nd))\}$ parity queries, where $s$ is Fourier sparsity. Its bit time is $2^{O(d\log(d+1))}\operatorname{poly}(n,S_0,\log(1/\delta))$ and its working space is polynomial, with an explicit precision interface. Boolean finite differences followed by scalar extension avoid constructing residual ANFs. Bounded repetition carries accuracy without enlarging the field. The query cap $n$ holds unconditionally; the smaller bound and correctness are a joint per-input guarantee, not a globally correct sampled tree. The stronger existential query bound and unrestricted XOR log-rank remain outside the result.
 \end{abstract}
 
 \section{Statement and relationship to prior work}
@@ -45,7 +45,7 @@ Degree throughout means the degree of the unique squarefree algebraic normal for
 The degree-reduction approach to parity decision trees predates this note~\cite{TWXZ}.
 Zhang~\cite{Z26} proves an existence bound of order $1+4^d\log s$, using a generic contraction radical and dimension-preserving descent. Remark~3.17 of that work expressly leaves construction time open. We replace the descent step by a directly computable binary intersection, accepting a logarithmic loss.
 The generic-rank comparison used below is due to Moshkovitz and Zhu~\cite{MZ}.
-The contribution here is the explicit input-access, specialization and resource analysis of this one-step consequence. No priority claim for the combination is made.
+The contribution here is explicit input-access, specialization and resource analysis, first for one batch and then for a complete visited path. The latter computes restricted top forms from Boolean evaluations of the original source. No priority claim for the combination is made.
 
 \begin{theorem}\label{thm:main}
 Let $p\in\F_2[x_1,\ldots,x_n]$ be given by its $L$ distinct squarefree nonzero monomials, of actual degree $3\le d\le n$. Let $0<\delta\le1/4$ be rational and let $S$ be the encoding length, including $\delta$. Put
@@ -63,6 +63,28 @@ The degree guarantee is exact on success. Both declared failure and incorrect ou
 \end{theorem}
 
 The input model is essential. Polynomial time includes polynomial dependence on the ambient dimension $n$; $S$ alone need not describe all unused variables. This is an explicit ANF input, not an arbitrary succinct arithmetic or Boolean circuit. The codimension estimate remains exponentially dependent on $d$, even though the construction time does not.
+
+For recursion, separate the original polynomial's encoding length $S_0$ from the accuracy input. An integer $b\ge2$ requests failure at most $\epsilon=2^{-b}$. For any desired $0<\delta<1$, choose $b=\max\{2,\lceil\log(1/\delta)\rceil\}$, so $\epsilon\le\delta$. A binary-fraction prefix through the first nonzero bit also suffices. An arbitrary numerator/denominator encoding of length $A$, if used instead, adds its own $\operatorname{poly}(A)$ parsing cost; it cannot be charged solely to $\log(1/\delta)$.
+
+\begin{theorem}\label{thm:recursive}
+Given the original explicit ANF of degree $3\le d\le n$, precision $b\ge2$, and parity-query access to a hidden $x\in\F_2^n$, there is a randomized on-demand policy with the following properties. Set
+\[
+ k=\lceil\log(8nd)\rceil,\qquad
+ t_F=2k(b+1),\qquad t_A=b+\lceil\log(2d)\rceil.
+\]
+For every fixed $x$, with probability at least $1-2^{-b}$, the policy returns $p(x)$ correctly and uses at most
+\begin{equation}\label{eq:recursivequeries}
+ \min\left\{n,\ 1+\left[1+\frac{k(2^{2d-1}-8)}3\right]\log B\right\}
+ \le \min\left\{n,\ 1+\frac12\left[1+\frac{k(2^{2d-1}-8)}3\right]\log s\right\}
+\end{equation}
+queries, hence $\min\{n,O(1+4^d\log s\log(nd))\}$. On every random tape it terminates, asks at most $n$ queries, uses polynomial working space, and has bit time
+\[
+ 2^{O(d\log(d+1))}\operatorname{poly}(n,S_0,b),
+\]
+with a polynomial exponent independent of $d$. It uses neither Fourier information nor a residual-degree oracle and prints only the visited path. Original degree at most two is handled exactly in polynomial time by the leaf routine below.
+\end{theorem}
+
+Theorems~\ref{thm:main} and~\ref{thm:recursive} have different computational guarantees: the one-batch construction is uniformly polynomial, whereas recursion pays an explicit original-degree factor. Neither claims that a single random seed supplies a correct deterministic tree for all inputs.
 
 \section{The imported structural interface}
 Define $\Delta_h p(x)=p(x+h)+p(x)$ and
@@ -184,6 +206,126 @@ Address decoding or a sequential scan of these polynomial-size arrays adds only 
 
 This proves Theorem~\ref{thm:main}. It supplies an algorithm and resource proof, not an implementation or performance benchmark.
 
+\section{Boolean evaluation before scalar extension}\label{sec:evaluator}
+Maintain $a\in\F_2^n$ and a full-column-rank matrix $C\in\F_2^{n\times m}$ such that the possible hidden inputs are exactly $a+C\F_2^m$. The current Boolean function is $u(z)=p(a+Cz)$. Its unique squarefree representative is used in the proof but never expanded or stored. Evaluating $p$ at a fully specified Boolean point is charged computation from its explicit description, not a query to the hidden $x$.
+
+\begin{lemma}\label{lem:boolean}
+Suppose the Boolean degree of $u$ is at most $r$. For binary directions define
+\begin{equation}\label{eq:booleandiff}
+ F_r(v_1,\ldots,v_r)=\sum_{J\subseteq[r]}p\left(a+C\sum_{j\in J}v_j\right)\quad\text{in }\F_2.
+\end{equation}
+This is the canonical top $r$-form: it is independent of the base point, symmetric, alternating and $\F_2$-multilinear. It is zero if $\deg u<r$. For a binary basis $\beta_0,\ldots,\beta_{k-1}$ of $E$, decompose $h_i=\sum_j\beta_jv_{i,j}$. Its scalar extension is exactly
+\begin{equation}\label{eq:extension}
+ T_E(h_1,\ldots,h_r)=
+ \sum_{j_1,\ldots,j_r=0}^{k-1}
+ \left(\prod_{i=1}^r\beta_{j_i}\right)F_r(v_{1,j_1},\ldots,v_{r,j_r}).
+\end{equation}
+For $T_E(h_1,\ldots,h_{r-2},e_i,e_j)$, at most $k^{r-2}2^r$ original-source evaluations suffice. They can be streamed in polynomial space.
+\end{lemma}
+\begin{proof}
+An $(r+1)$-fold difference of a Boolean polynomial of degree at most $r$ vanishes. Thus the $r$-fold difference is independent of its base point. The operator identity $\Delta_{v+w}=\Delta_v+\Delta_w+\Delta_v\Delta_w$ proves additivity in every direction: its last term contributes an $(r+1)$-fold difference. Also $\Delta_v^2=0$, proving alternation; commutation gives symmetry. Values on distinct basis vectors extract the top coefficients of the canonical ANF. Formula~\eqref{eq:extension} is now multilinearity, and in the contraction only the first $r-2$ slots need expansion. Nested tuple/subset loops accumulate one field value without storing their exponentially many states.
+\end{proof}
+
+This order of operations matters. For $p=x_1x_2+x_1$ and $(x_1,x_2)=(z,z)$, the Boolean restriction and every value of~\eqref{eq:booleandiff} are zero. The unreduced formal expression $z^2+z$ is nonzero at $\alpha\in E\setminus\F_2$. More sharply, restrict $x_1x_2x_3x_4$ to $(z_1,z_1,z_2,z_3)$. Its canonical cubic form at $(\alpha e_1,e_2,e_3)$ equals $\alpha$, whereas third field differences of the unreduced expression return $\alpha^2$. Lemma~\ref{lem:boolean} handles both controls in every dimension; it never evaluates the substituted formal expression at a nonbinary point.
+
+An upper bound on the current degree suffices. If the actual degree is smaller, the scheduled form is zero. On a history where the upper bound fails, the same finite loops still terminate; their output need not be the canonical form, and such histories are included in the failure budget.
+
+\section{The recursive policy and its correctness}\label{sec:recursion}
+Use the parameters of Theorem~\ref{thm:recursive} throughout this section. Construct one verified field by the earlier irreducibility test, now with cap $t_F$. The counting argument gives
+\[
+ \Pr[\text{field failure}]\le e^{-(b+1)}\le 2^{-(b+1)}=\epsilon/2.
+\]
+On failure output zero with a failure flag. Conditional on any verified field, consider a stage with current degree at most $r$. If the degree is exactly $r$, the structural interface and Lemma~\ref{lem:special} apply in dimension $m$; if smaller, its form is zero and generic rank $R=0$. One nonzero generic minor has degree at most $m(r-2)\le nd$. A uniform anchor sample therefore misses generic rank with probability at most $nd/2^k\le1/8$.
+
+Compute exactly $t_A$ independent candidate contractions by Lemma~\ref{lem:boolean}, and keep an exact row basis from a candidate of largest observed rank, with deterministic tie breaking. Every sampled rank is at most $R$, since all larger minors vanish identically. If any sample attains $R$, the selected one does too. Hence
+\begin{equation}\label{eq:stagefailure}
+ \Pr[\text{selected rank}<R]\le8^{-t_A}\le2^{-t_A}\le\epsilon/(2d).
+\end{equation}
+This is probabilistic amplification, not a certificate of generic rank. No unbounded retry is used. The field degree is independent of $b$; choosing it proportional to $\log(nd/\delta)$ inside~\eqref{eq:extension} would instead introduce a degree-dependent power of the precision parameter.
+
+\subsection{Lifting queries and updating the affine map}
+Binary elimination constructs $L_C$ with $L_CC=I_m$. To ask for $\lambda z$, ask the allowed original-input query $(\lambda L_C)x$ and add the known offset $(\lambda L_C)a$. Expand the selected field row basis into binary equations and row-reduce to independent rows $H$, of rank $\rho$. The answers determine $Hz=y$. Compute a solution $z_0$ and a nullspace basis $V$, then replace
+\begin{equation}\label{eq:affineupdate}
+ a\leftarrow a+Cz_0,\qquad C\leftarrow CV,\qquad m\leftarrow m-\rho.
+\end{equation}
+All answer vectors are consistent because $H$ has full row rank. The new columns remain independent and describe exactly the remaining input set. The map uses at most $n+n^2$ bits, independent of the number of previous batches. Even on a bad rank history, the true $x$ remains in this set.
+
+On a good stage, binary intersection and the vanishing identity lower the degree on every coset to at most $r-1$. The same original source and the updated map therefore supply the next form through Lemma~\ref{lem:boolean}. After two stages the map is $a+Cz_0+CVz_1$, with linear part $CVV_1$ and degree at most $r-2$. This proves arbitrary repeated composition without expanded ANFs or actual-degree detection.
+
+\subsection{Algorithm and conditional history}
+\begin{enumerate}
+\item Normalize the original ANF, determine its degree $d$, and retain it throughout. If $d\le2$, use the exact leaf routine below.
+\item Construct the verified field under cap $t_F$. On success set $a=0$, $C=I_n$ and $m=n$.
+\item For scheduled $r=d,d-1,\ldots,3$: if $m=0$, return $p(a)$. Otherwise compute $t_A$ independent candidate matrices by~\eqref{eq:booleandiff}--\eqref{eq:extension}; retain a maximum-rank row basis; expand and reduce its binary equations; ask the lifted parities; and apply~\eqref{eq:affineupdate}.
+\item Apply the quadratic/affine leaf routine to the current source evaluator and return its bit.
+\end{enumerate}
+Fix the hidden $x$. Condition on successful field construction and on the complete history of earlier successful stages. The current field, $a,C,u$ are fixed, the degree promise follows inductively, and future anchor bits remain independent and uniform. Equation~\eqref{eq:stagefailure} applies to this conditional history. A first-failure decomposition over at most $d-2$ visited stages yields
+\begin{equation}\label{eq:totalfailure}
+ \Pr[\text{field failure or a visited bad stage}]
+ \le\epsilon/2+(d-2)\epsilon/(2d)\le\epsilon.
+\end{equation}
+On its complement the final degree is at most two, so the leaf is exact. On other histories all loops, eliminations and affine updates still terminate. Only correctness, the propagated degree promise and the smaller query estimate may fail. This proof concerns every fixed input separately. It does not union-bound over an entire tree or supply an all-input correct random seed.
+
+\subsection{Exact quadratic and affine leaves}\label{sec:leaf}
+For $m=0$ return $p(a)$. Otherwise evaluate $u$ at zero, the $e_i$ and the $e_i+e_j$ for $i<j$, and set
+\[
+ c=u(0),\quad l_i=u(e_i)+c,\quad
+ b_{ij}=u(e_i+e_j)+u(e_i)+u(e_j)+c.
+\]
+The explicit quadratic $g(z)=c+\sum_i l_i z_i+\sum_{i<j}b_{ij}z_iz_j$ equals $u$ on a good history. On a bad history it is simply a defined quadratic approximation. Form its alternating polar matrix $B_g$. Symplectic elimination constructs invertible $P$ with $P^\mathsf{T}B_gP$ consisting of $t$ alternating pairs and a zero block, where $\rank B_g=2t$. Explicitly choose a pair $a_0,b_0$ with pairing one, and replace each remaining vector $v$ by
+\[
+ v+B_g(v,b_0)a_0+B_g(v,a_0)b_0.
+\]
+It is then perpendicular to that pair. Repeating preserves a basis and isolates the radical; explicit bookkeeping costs at most $O(m^4)$ bit work. The canonical Boolean expression is
+\[
+ g(Pw)=c+\sum_{i=1}^t w_{2i-1}w_{2i}+\ell\cdot w,
+ \qquad \ell_j=g(Pe_j)+c.
+\]
+Computing these linear terms includes squares reducing to linear terms. Query the $t$ odd coordinates, lifting through $CP$. Once they are known, the remaining expression is affine: at most one additional parity gives its value. The leaf uses at most $t+1$ queries and at most $m$; if $t=0$ it uses zero queries for a constant and at most one otherwise.
+
+On a good history, $\|\widehat{(-1)^u}\|_1=2^t$. Indeed, each independent two-bit quadratic pair has four Fourier coefficients of magnitude $1/2$ and norm two; affine characters shift frequencies and invertible linear changes permute them. Affine restriction cannot increase spectral norm: it groups original Fourier coefficients with signs, so the triangle inequality applies. Thus the leaf costs at most $1+\log B$ with $B$ from the original input.
+
+\subsection{Total queries}
+On the good event, stage $r$ uses at most $k2^{2r-3}\log B$ queries, including zero when the actual degree is smaller than $r$. Summing with the leaf gives
+\[
+ 1+\left[1+k\sum_{r=3}^d2^{2r-3}\right]\log B
+ =1+\left[1+\frac{k(2^{2d-1}-8)}3\right]\log B.
+\]
+Every batch removes exactly as many dimensions as queries asked, and the leaf uses at most the remaining dimension. Hence the cap $n$ holds on all tapes. Taking the minimum and using $B\le\sqrt{s}$ proves~\eqref{eq:recursivequeries}. The additive one covers a nonconstant parity with $s=1$.
+
+\section{Total recursive computation and space}\label{sec:resources}
+Here $S_0$ is the original polynomial encoding length. A normalization pass can check indices, sort within monomials and cancel duplicate monomials by in-place scans in polynomial time and $O(S_0)$ storage; no $L\times n$ incidence table is required. Put
+\[
+ V_0=n^2+(d+1)(S_0+n)+1.
+\]
+With indexed bit storage, $O(V_0)$ work covers one original-source evaluation, its binary affine transformation and a subset-sum point for $r\le d$. One contraction entry costs at most
+\[
+ O\bigl(k^{r-2}(2^rV_0+rk^2)\bigr)
+ \le O\bigl((2k)^r(V_0+dk^2)\bigr).
+\]
+This counts each binary evaluation, each field-basis product and accumulation. There are at most $n^2$ entries per sample, $dt_A$ samples, and $O(n^3k^3)$ bit work for each field elimination. Binary expansion/elimination costs $O(kn^3)$ per stage; left inverses, query lifting, coset solutions and affine composition each fit $O(n^3)$. Quadratic coefficient extraction and the leaf cost $O(n^2V_0+n^4)$. All query descriptions together use at most $n^2$ bits, plus $n$ answer bits. Before sequential-access/control overhead a conservative bound is
+\begin{align}
+ T_0={}&\operatorname{poly}(n,S_0,b)+O\bigl(t_Fk^4 \label{eq:recursivebits}\\
+ &\quad+dt_A[n^2(2k)^d(V_0+dk^2)+n^3k^3]
+       +dkn^3+n^2V_0+n^4\bigr).\nonumber
+\end{align}
+The random-bit cap is
+\[
+ t_Fk+t_Akn(d-2)(d-1)/2.
+\]
+Keep the original source, current map, one candidate matrix, one best row basis, anchors, binary workspaces, field polynomial and scalar accumulators. Tuples/subsets and trials are streamed. A conservative live-space bound, including transient old/new maps and bounded counters, is
+\begin{equation}\label{eq:recursivespace}
+ W=O(S_0+kn^2+ndk+k^2+b+n^2+d\log(k+1)+1).
+\end{equation}
+This stores neither a full restricted ANF nor the random tape nor the tree. Sequential scans, index decoding and bounded-width control add at most a polynomial overhead; $W^2(T_0+1)$ is a conservative ordinary bit-Turing bound.
+
+Finally, $k\le\log(16nd)$ and
+\[
+ (2k)^d\le\left(\frac2{\ln2}\right)^d[\ln(16nd)]^d
+ \le16nd\left(\frac{2d}{e\ln2}\right)^d.
+\]
+The last inequality follows by maximizing $y^de^{-y}$ over $y\ge0$. Since $t_A=O(b+\log d)$, $t_F=O(k(b+1))$ and $d\le n$, equations~\eqref{eq:recursivebits}--\eqref{eq:recursivespace} prove the time and space claims of Theorem~\ref{thm:recursive} with fixed polynomial exponents. The bounds hold on bad tapes as well. There is no degree or variance loss and no numerical approximation; all errors arise from the capped field search and rank specializations.
+
 \section{Controls and limitations}
 Write $x_I=\prod_{i\in I}x_i$. Four exact controls are:
 \begin{center}
@@ -217,12 +359,22 @@ $4^d\log s\log(nd/\delta)=o(n)$.
 This regime need not arise by adjoining unused variables: the product of three parities on disjoint growing variable blocks depends on every variable, has degree three, sparsity eight and at most $n^3$ ANF monomials.
 The input cost remains paid.
 
-The construction does not preserve a compact ANF under repeated affine restrictions. An unreduced formal circuit is not automatically a replacement: $z^2+z$ is zero on $\F_2$ but not on an extension field.
-Full recursion requires representation, degree-detection, leaf-computation and accumulated-error analysis. A guarantee for one randomized batch also differs from a globally correct sampled deterministic tree.
-The known existential query bound is not improved, and no general quantum-simulation or BPP-versus-BQP conclusion follows.
+For an explicit two-stage control take
+\[
+ p=x_1x_2(x_3x_4+x_5x_6)+x_7x_8x_9.
+\]
+Quartic anchors $e_1,e_2$ give rank four, with pairs $(3,4)$ and $(5,6)$. This is generic rank: the two generic anchors lie in the radical of the six-dimensional support, and the last three coordinates are inactive. Querying $x_3,x_4,x_5,x_6$ leaves
+\[
+ u(z)=c z_1z_2+z_3z_4z_5,\qquad c=x_3x_4+x_5x_6.
+\]
+The cubic contraction at $e_3$ has generic rank two, since its alternating three-dimensional block has rank at most two. Querying $z_4,z_5$, equivalently $x_8,x_9$, leaves $c w_1w_2+(x_8x_9)w_3$, of degree at most two for every answer branch. This control illustrates the general composition proof; finite agreement is not used as its substitute.
+
+The recursive construction stores a compact affine map, not a compact residual ANF. Its stronger runtime dependence in $d$ is retained. The known existential query bound is better by a factor $O(\log(nd))$; dimension-preserving descent and the construction of a globally correct deterministic tree remain different obligations. Reading all $n$ hidden bits already permits direct evaluation of the explicit $p$. Our result concerns fewer parity queries with paid computation, not faster unrestricted evaluation or a general quantum simulator.
+
+Earlier parity-tree recursion is due to Tsang--Wong--Xie--Zhang~\cite{TWXZ}. Zhang's quantum protocol~\cite{Z14} assumes an efficiently encoded/decoded Fourier spectrum, a different access model and output. Hrube\v{s}'s multilinearization hardness result~\cite{H15}, Theorem~7(ii), concerns uniformly small arithmetic representations of whole multilinearizations. It does not rule out our degree-parameterized, promise-based top-form evaluator. These comparisons explain the input distinction; they do not establish novelty. Unrestricted XOR log-rank, stronger AA bounds and BPP versus BQP are not resolved.
 
 \paragraph{Disclosure and status.}
-OpenAI Codex assisted with derivation, source comparison, drafting and document preparation. No independent peer review or formal certification is claimed. This working draft presents an attributed algorithmic corollary; priority and publication significance are not established.
+OpenAI Codex assisted with derivation, source comparison, drafting and document preparation. Internal analytic checks cover the mathematics, sources, claims and document package. No implementation, benchmark, independent peer review or formal certification is claimed. This preprint presents attributed algorithmic corollaries; priority and publication significance are not established.
 
 \clearpage
 \begin{thebibliography}{9}
@@ -243,5 +395,17 @@ Hing Yin Tsang, Chung Hoi Wong, Ning Xie and Shengyu Zhang.
 \emph{Fourier sparsity, spectral norm, and the Log-rank conjecture}.
 Proceedings of FOCS, 2013.
 \href{https://arxiv.org/abs/1304.1245}{arXiv:1304.1245}.
+
+\bibitem{Z14}
+Shengyu Zhang.
+\emph{Efficient quantum protocols for XOR functions}.
+Proceedings of SODA, 2014.
+\href{https://arxiv.org/abs/1307.6738}{arXiv:1307.6738}.
+
+\bibitem{H15}
+Pavel Hrube\v{s}.
+\emph{On hardness of multilinearization, and VNP-completeness in characteristics two}.
+Author manuscript, April 21, 2015, Theorem~7(ii).
+\href{https://users.math.cas.cz/~hrubes/PDFs/Mult.pdf}{Author-hosted manuscript}.
 \end{thebibliography}
 \end{document}

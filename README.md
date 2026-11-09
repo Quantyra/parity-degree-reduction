@@ -1,34 +1,32 @@
-# Constructing a degree-reducing parity batch from explicit Boolean polynomials
+# Degree reduction and recursive parity queries for explicit Boolean polynomials
 
-**Daniel Fredriksen · Quantyra Inc. · [ORCID 0009-0002-9123-7435](https://orcid.org/0009-0002-9123-7435)**
+**Daniel Fredriksen ? Quantyra Inc. ? [ORCID 0009-0002-9123-7435](https://orcid.org/0009-0002-9123-7435)**
 
-[Manuscript PDF](manuscript/main.pdf) · [LaTeX source](manuscript/main.tex) · [Review and scope](REVIEW.md) · [Zenodo setup](publication/README.md)
+[Manuscript PDF](manuscript/main.pdf) ? [LaTeX source](manuscript/main.tex) ? [Review and scope](REVIEW.md) ? [Publication record](publication/README.md)
 
-**Working draft, version 0.1.0.** The repository and manuscript are prepared for review. No GitHub release, Zenodo archive or DOI has been created. The author will connect this repository to Zenodo; the subsequent PaperMill handoff and release decision remain pending.
+**Preprint candidate, version 0.2.0.** This expands the unreleased 0.1.0 working draft. The first GitHub release and Zenodo archive are authorized and pending exact-package checks; no prior DOI is assumed.
 
-Given an explicit squarefree Boolean polynomial of degree d>=3, the note gives a randomized algorithm constructing a fixed batch of parity queries that lowers the degree on every branch. For f=(-1)^p, B=||fhat||_1 and error allowance delta, the codimension is at most
+The paper gives two attributed algorithmic corollaries for an explicit squarefree Boolean polynomial p of degree d. For f=(-1)^p, let B be its Fourier spectral norm and s its Fourier sparsity; neither is an algorithm input.
 
-    min(n, k * 2^(2d-3) * log_2 B),
-    k = ceil(log_2(4n(d-2)/delta)).
+- One fixed parity batch lowers degree on every coset, with probability at least 1-delta, codimension at most min(n,k*2^(2d-3)*log_2 B), and k=ceil(log_2(4n(d-2)/delta)). Determinant evaluation gives construction time polynomial in ambient n, explicit input length and log(1/delta).
+- A complete on-demand recursive policy, for each fixed hidden input, jointly returns p(x) correctly and asks min(n,O(1+4^d log(s) log(nd))) parity queries with probability at least 1-delta. Its bit time is 2^O(d log(d+1))*poly(n,S,log(1/delta)), with polynomial working space. The cap n holds on every tape. An explicit accuracy integer is used; arbitrary rational parsing has a separately charged input cost.
 
-Success probability is at least 1-delta, and degree reduction is exact on success. Construction time and space are polynomial in the ambient dimension, explicit ANF encoding length and log(1/delta). The degree-dependent query bound remains exponential. Determinant evaluation in characteristic two removes the subset-enumeration cost of the initial derivation.
+Recursion retains the original ANF plus a compact binary affine map. Boolean finite differences precede scalar extension; fixed-budget maximum-rank sampling, lifted queries and exact quadratic leaves complete the proof. The one-batch theorem retains a stronger uniform polynomial runtime for its narrower output. The paper supplies algorithms and proofs, not an implementation or benchmark.
 
-This is an algorithmic corollary of the generic radical identity in [Zhang v1](https://arxiv.org/abs/2611.03452v1) and the rank comparison of [Moshkovitz-Zhu v1](https://arxiv.org/abs/2603.11038v1), using standard specialization and linear algebra. It introduces a logarithmic codimension loss relative to the structural existence result. Novelty and publication significance are not established. The note supplies a proved algorithm and pseudocode, not a software implementation or benchmark. Efficient full recursion, unrestricted XOR log-rank and BPP versus BQP remain unresolved.
+The structural inputs are [Zhang v1](https://arxiv.org/abs/2611.03452v1) and [Moshkovitz?Zhu v1](https://arxiv.org/abs/2603.11038v1). The imported existential depth bound is stronger by a logarithmic factor. Our randomized per-input policy is not a globally correct sampled deterministic tree. Novelty and publication significance remain unestablished; unrestricted XOR log-rank and BPP versus BQP remain unresolved.
 
 ## Build and check
 
-Use Python 3.10+, Tectonic 0.17.0 and the pinned packages in [requirements.txt](requirements.txt).
+Use Python 3.10+, Tectonic 0.17.0 and [requirements.txt](requirements.txt).
 
     python -m pip install -r requirements.txt
     python tools/build.py --tectonic /path/to/tectonic --render
     python tools/check_package.py
 
-The optional render step produces page images for visual inspection. Tectonic may download its standard typesetting bundle if uncached. These tools only typeset and check documents; they do not publish or run the mathematical algorithm. Build and package receipts are in [verification](verification/). Rebuilding changed source requires renewed visual inspection before updating the visual receipt. The build helper was adapted from the same author's [aa-noise-influence archive](https://github.com/Quantyra/aa-noise-influence), under CC BY 4.0.
+These tools only typeset and check documents. Inspect changed pages before updating [visual evidence](verification/visual.json); [build](verification/build.json) and [package](verification/package.json) receipts establish document consistency, not theorem verification. Tooling is adapted under CC BY 4.0 from the same author's [aa-noise-influence archive](https://github.com/Quantyra/aa-noise-influence).
 
 ## Citation and archiving
 
-[CITATION.cff](CITATION.cff) describes this working draft. Root [.zenodo.json](.zenodo.json) requests a publication/preprint archive and takes precedence over CFF metadata in Zenodo's GitHub ingestion. It contains no invented DOI or release date. The PDF is tracked in the repository, so it will be present in a future repository archive.
+[CITATION.cff](CITATION.cff) and [.zenodo.json](.zenodo.json) contain the confirmed author and preprint metadata. The PDF is tracked in Git and included in the repository archive. See [publication details](publication/README.md) for release status and verified identifiers; enabling Zenodo alone does not mint a DOI.
 
-Follow [the setup instructions](publication/README.md) to enable **Quantyra/parity-degree-reduction** in Zenodo. No publishing workflow or credential is included. Enabling the connection prepares future release archiving; a later published GitHub release is a separate action.
-
-All original package material is licensed under [CC BY 4.0](LICENSE). External papers are linked, not redistributed. OpenAI Codex assisted with derivation, source comparison, drafting and package preparation. Internal analytic and document checks are documented in [REVIEW.md](REVIEW.md); no independent peer review or formal certification is claimed.
+All original package material is licensed under [CC BY 4.0](LICENSE). External papers are linked, not redistributed. OpenAI Codex assisted derivation, source comparison, drafting and package preparation. [REVIEW.md](REVIEW.md) records internal AI-assisted mathematical, source, claims and artifact checks. No independent peer review or Lean certification is claimed.

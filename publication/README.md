@@ -1,21 +1,11 @@
-# Zenodo connection and subsequent handoff
+# Publication and archive record
 
-Current state: manuscript and repository preparation. The author will enable Zenodo, then report back before the requested PaperMill handoff. No GitHub release, DOI, journal submission or PaperMill queue item is created by this preparation.
+Version 0.2.0 expands the unreleased 0.1.0 working draft to include the complete recursive parity policy. Fresh GitHub inspection found no previous release or DOI. This is the intended first public archive, not an update to an invented earlier DOI.
 
-## Connect the repository
+Dan authorized expansion and DOI publication/versioning on November 9, 2026. The repository's active release webhook to Zenodo is already verified. After final review and artifact checks, freeze the exact commit and PDF hash, publish v0.2.0, then verify the actual archive, metadata and version/concept DOIs. Current state: candidate preparation; publication is not yet claimed.
 
-1. Sign in to [Zenodo's GitHub settings](https://zenodo.org/account/settings/github/).
-2. Use **Sync now**, find **Quantyra/parity-degree-reduction**, and turn on its slider. If it is absent, check that Zenodo has access to the Quantyra organization.
-3. Refresh and confirm it is enabled. Report that confirmation before the requested PaperMill handoff.
+The root .zenodo.json requests publication/preprint with confirmed author, affiliation, ORCID and CC BY 4.0 metadata; it takes precedence over CFF in GitHub ingestion. The tracked PDF is part of the repository archive. No publishing token or release automation is included.
+
+[Release notes](RELEASE-NOTES-v0.2.0.md) explain the expanded scope. The [old draft notes](RELEASE-NOTES-v0.1.0.md) are historical and were never released. Build/package and visual checks cover document consistency only. The internal review is not independent peer review or Lean certification. Any post-release verification receipt and DOI citation updates remain outside the immutable archive they verify.
 
 Official instructions: [enable a repository](https://help.zenodo.org/docs/github/enable-repository/), [Zenodo JSON metadata](https://help.zenodo.org/docs/github/describe-software/zenodo-json/), [archive a GitHub release](https://help.zenodo.org/docs/github/archive-software/github-upload/).
-
-The connection alone does not publish the first archive. A later published GitHub release triggers ingestion and DOI registration. Do not create a tag/release merely to test the connection.
-
-## Prepared package
-
-Root .zenodo.json requests a publication/preprint, using the confirmed author, affiliation, ORCID and CC BY 4.0 license. It takes precedence over CITATION.cff for Zenodo ingestion. Neither contains a guessed DOI or release date. The manuscript PDF is committed alongside the source; the package does not rely on release attachments being imported. No publishing token or automated release workflow exists here.
-
-Before any later release, the responsible lane must record the exact reviewed commit, PDF hash, manuscript/metadata version and release decision. Update working-draft wording consistently, rerun document checks and inspect changed pages. After an authorized release, verify the actual Zenodo record, archive contents and version/concept DOI before reporting success. An enabled integration or DOI is not mathematical validation.
-
-The prepared release notes are a draft only. A subsequent PaperMill handoff should carry the manuscript, review scope, source dependencies, unestablished novelty, unresolved recursion boundary and exact artifact identities. No release authority is inferred from the handoff itself.

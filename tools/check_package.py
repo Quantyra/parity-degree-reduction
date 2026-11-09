@@ -8,7 +8,7 @@ import pymupdf
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-TITLE = "Constructing a degree-reducing parity batch from explicit Boolean polynomials"
+TITLE = "Degree reduction and recursive parity queries for explicit Boolean polynomials"
 REPO = "https://github.com/Quantyra/parity-degree-reduction"
 
 
@@ -23,7 +23,7 @@ def main():
     visual = json.loads((ROOT / "verification/visual.json").read_text(encoding="utf-8"))
     preferred = citation["preferred-citation"]
     assert zenodo["title"] == preferred["title"] == TITLE
-    assert citation["version"] == zenodo["version"] == "0.1.0"
+    assert citation["version"] == zenodo["version"] == "0.2.0"
     assert citation["repository-code"] == REPO
     assert preferred["url"] == REPO + "/blob/main/manuscript/main.pdf"
     assert citation["license"] == zenodo["license"] == "CC-BY-4.0"
@@ -51,7 +51,7 @@ def main():
     fonts = {font[0] for page in pdf for font in page.get_fonts()}
     assert all(xref > 0 and pdf.extract_font(xref)[3] for xref in fonts)
     all_text = "\n".join(page.get_text() for page in pdf)
-    assert "Working draft" in all_text and "OpenAI Codex" in all_text
+    assert "Preprint, version 0.2.0" in all_text and "OpenAI Codex" in all_text
     assert "independent peer review" in all_text
 
     required = [
@@ -60,6 +60,7 @@ def main():
         "manuscript/main.tex", "manuscript/main.pdf", "tools/build.py",
         "tools/check_package.py", "verification/build.json", "verification/visual.json",
         "publication/README.md", "publication/RELEASE-NOTES-v0.1.0.md",
+        "publication/RELEASE-NOTES-v0.2.0.md",
     ]
     for name in required:
         path = ROOT / name

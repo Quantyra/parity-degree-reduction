@@ -1,28 +1,37 @@
 {
   "date": "2026-11-09",
-  "scope": "Actual assistant inspection of all rendered manuscript pages; document layout only",
-  "pdf_sha256": "ba03a19f844a81f87a5a01331b67eaf33858cdbad1a03d01e25ebfd747ce2a88",
+  "scope": "Actual assistant inspection of all 11 rendered final manuscript pages; document layout only",
+  "pdf_sha256": "1e5705f3806783ab1bfd317c17b47f337f4318b43a9e9578f9c1c86e978d5139",
   "pages_inspected": [
     1,
     2,
     3,
     4,
     5,
-    6
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
   ],
   "verdict": "PASS_DOCUMENT_LAYOUT",
   "observations": [
-    "All six pages inspected at 100 dpi; equations, theorem continuations, control table and references are legible.",
-    "No clipping, overlapping text or missing glyphs observed.",
-    "Bibliography starts on a dedicated final page.",
-    "Compiler font-configuration message retained in build receipt; rendered output shows no associated defect."
+    "All 11 pages inspected at 100 dpi, including both main statements, recursive proof, resource equations, controls and corrected bibliography.",
+    "No clipping, overlap, missing glyphs or unresolved references observed.",
+    "Nonfatal Fontconfig message retained; no corresponding visible defect."
   ],
   "render_sha256": {
-    "1": "5fc2bc188542018714d4e7e3f7beb71aae152711ec9ced0c916d3e7b5a1ace7b",
-    "2": "a31901c6186b4d006e6a429844849864c91028e6c54a33bbe453d19b3515aa0d",
-    "3": "ac7a8c65427c128b66d18ce2a2d2e0c5032bb0d8e3ee2f6df39f145042c72b71",
-    "4": "76dd71c1b69af28d09bcbfcb50ba3c0e4e141aefda226b0b4b0acb84e369cd97",
-    "5": "c0e2170fc181f6c5516c2918783c715c5650b4504d4e4413b9f818f238852f83",
-    "6": "8e5b99530f6fe75c65eb973e2546b4de3a9c3a59d11fa0fd07252eef06d4bb7c"
+    "1": "ebdbb4789d968577bbd7cc5092ca1666c583285447efb085f08bf3fde57b73d7",
+    "2": "62f40fc355a3a0b89faebd1c419c8250db8b7cd472ec9d8437ffe4edbe6a38e4",
+    "3": "ec4acb5cc2ba1493452e6dd28ac0a0df8c441df87a7cfaacf2675fe6a235b31a",
+    "4": "987e320b3f511ed533e372cea212cc65ea23bed12010c2ba90d21042f6a6550a",
+    "5": "2b00e13e81b6e353d745b973bf0435ca5aae35fa0638c77bdfb5d2aa791f546c",
+    "6": "31899bb1228c8c89df84530da096720a91987d24dc9e6c9f160b8356d5af1ab3",
+    "7": "591429f7824d0e3f92cbf2538aadb58f1b58dfed1699b61ce1048a4616492034",
+    "8": "4d62017c4309827f87533481c647cdad95ab51643d6dd7ca437f6c538a491604",
+    "9": "af5998f03b60afcce167a5c112c87b9e65848c32eb40233bdc3e97f172fe9402",
+    "10": "d5c7fb23ff2434a55e4c1820ea78f07a1c343f2bc6f2102453683c32364ee8dc",
+    "11": "be4df9172bc613a04ffb2dec411c9d3b642ae299a55691b05db6038d4806b83f"
   }
 }

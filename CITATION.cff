@@ -1,8 +1,8 @@
 cff-version: 1.2.0
-message: "Please cite the working manuscript in preferred-citation; no DOI or release has been issued."
+message: "Please cite the preprint in preferred-citation. Archive identifiers are recorded after verified publication."
 type: software
-title: "Constructing a degree-reducing parity batch from explicit Boolean polynomials: manuscript archive"
-version: 0.1.0
+title: "Degree reduction and recursive parity queries for explicit Boolean polynomials: manuscript archive"
+version: 0.2.0
 authors:
   - family-names: Fredriksen
     given-names: Daniel
@@ -19,12 +19,12 @@ keywords:
   - Fourier sparsity
 preferred-citation:
   type: article
-  title: "Constructing a degree-reducing parity batch from explicit Boolean polynomials"
+  title: "Degree reduction and recursive parity queries for explicit Boolean polynomials"
   authors:
     - family-names: Fredriksen
       given-names: Daniel
       affiliation: Quantyra Inc.
       orcid: https://orcid.org/0009-0002-9123-7435
   year: 2026
-  notes: "Working draft, version 0.1.0; not a released or peer-reviewed publication."
+  notes: "Preprint, version 0.2.0; no independent peer review or formal certification claimed."
   url: https://github.com/Quantyra/parity-degree-reduction/blob/main/manuscript/main.pdf
