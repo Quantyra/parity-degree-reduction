@@ -4,7 +4,7 @@
 
 [Manuscript PDF](manuscript/main.pdf) · [LaTeX source](manuscript/main.tex) · [Review and scope](REVIEW.md) · [Publication record](publication/README.md)
 
-**Version 0.3.0: reviewed revision prepared for release.** The earlier [v0.2.0 archive](https://doi.org/10.5281/zenodo.24092922) remains immutable; [concept DOI](https://doi.org/10.5281/zenodo.24092921). Current release/archive status and exact identifiers are in the publication record.
+**Version 0.3.0: published and archive-verified.** [Version DOI10.5281/zenodo.24093687](https://doi.org/10.5281/zenodo.24093687); [release](https://github.com/Quantyra/parity-degree-reduction/releases/tag/v0.3.0). All24archived files match release5f55a6371b0cac793f8784ffabdb1936ea7152be byte for byte; [verification receipt](verification/publication-v0.3.0.json). The earlier [v0.2.0 archive](https://doi.org/10.5281/zenodo.24092922) remains immutable; [concept DOI](https://doi.org/10.5281/zenodo.24092921). Current release/archive status and exact identifiers are in the publication record.
 
 The main theorem gives a uniformly polynomial-time on-demand parity-query policy for an explicit squarefree Boolean ANF p of original degree d and encoding length S. For each fixed hidden x, with probability at least 1-delta, it returns p(x) correctly and asks at most min(n,O(1+4^d log(s) log(nd))) parity queries, where s is Fourier sparsity. Fourier norm and sparsity are analysis quantities, not inputs. Total bit time and working space are poly(n,S,log(1/delta)) with fixed exponents independent of d. An explicit precision input is used; arbitrary rational parsing has a separately charged cost. Every random tape terminates and uses at most n queries.
 

@@ -1,8 +1,10 @@
 cff-version: 1.2.0
-message: "Please cite the preprint in preferred-citation. Version 0.3.0 is the current revision; archived version identifiers are recorded in publication/README.md."
+message: "Please cite the preprint in preferred-citation. The DOI identifies the verified version 0.3.0 archive."
 type: software
 title: "Polynomial-time parity-query policies for explicit Boolean polynomials: manuscript archive"
 version: 0.3.0
+date-released: 2026-11-09
+doi: 10.5281/zenodo.24093687
 authors:
   - family-names: Fredriksen
     given-names: Daniel
@@ -18,6 +20,7 @@ keywords:
   - finite fields
   - Fourier sparsity
 preferred-citation:
+  doi: 10.5281/zenodo.24093687
   type: article
   title: "Polynomial-time parity-query policies for explicit Boolean polynomials"
   authors:

@@ -1,0 +1,71 @@
+{
+  "status": "PUBLISHED_AND_VERIFIED",
+  "verified_at_utc": "2026-11-09T21:59:14.140925+00:00",
+  "version": "0.3.0",
+  "tag": "v0.3.0",
+  "release_commit": "5f55a6371b0cac793f8784ffabdb1936ea7152be",
+  "github_release_url": "https://github.com/Quantyra/parity-degree-reduction/releases/tag/v0.3.0",
+  "github_release_id": 439695110,
+  "github_published_at": "2026-11-09T21:57:58Z",
+  "github_pdf_url": "https://github.com/Quantyra/parity-degree-reduction/releases/download/v0.3.0/main.pdf",
+  "pdf_sha256": "b0601d8c3b33271d8c7921e7aa7aa0b9706fc925be1f7a576c1b13ab4fe4e5be",
+  "zenodo_record": "https://zenodo.org/records/24093687",
+  "version_doi": "10.5281/zenodo.24093687",
+  "concept_doi": "10.5281/zenodo.24092921",
+  "doi_resolved_to": "https://zenodo.org/records/24093687",
+  "zenodo_created": "2026-11-09T21:58:03.017033+00:00",
+  "metadata_verified": [
+    "title",
+    "author",
+    "affiliation",
+    "ORCID",
+    "version",
+    "publication/preprint",
+    "open access",
+    "CC BY 4.0"
+  ],
+  "archive": {
+    "name": "Quantyra/parity-degree-reduction-v0.3.0.zip",
+    "bytes": 179446,
+    "md5": "778c254922baa56524dbd8e34497a26a",
+    "sha256": "c44bcd8efb0395fecedb828d4fcaf7f7edaf04ea951144503448232f6d8fc16c",
+    "files_verified": 24,
+    "all_files_byte_identical_to_release_commit": true
+  },
+  "archived_file_sha256": {
+    ".gitattributes": "8df22cc43d34bc5cf0e2ae4d1cd11a28ad8073b0e53f3ad51d1d693516d12b32",
+    ".gitignore": "3c9e63e3cd780bf7e478c2bd4c8d3dab0797bd1642567876f269f91a8ad13756",
+    ".zenodo.json": "37e62ac7ca476d121ec13785c7a6cabfd54e1eac6ea2c5f7d2f2b50ee85dfe5a",
+    "AGENTS.md": "8d973e47d161ed013875b3d11f19e7940b99dbc11e8deaca6535f922505b771c",
+    "CITATION.cff": "b1bad05d75e9ab4b1a5664e498a2f1ffd17f2a93589d980ea18180d1e188374f",
+    "LICENSE": "f573401864bded3da6af0cdcbb57c39c866f9a8bb68f9e2664d7d196c494877b",
+    "LICENSES/CC-BY-4.0.txt": "9e5f1b3c610b9c2da5c313bf81d577a7d1acec686bdb0384edefa6df0f90cd94",
+    "README.md": "7c61843aafb0c3c8e322bf2d1d97f70fdb0adb3a3ca3f994bf23be737a4f3009",
+    "REVIEW.md": "c521bf4309da2ba0964e3616512701da5c3d84c5ff86d5d140e9ad08f07593e2",
+    "manuscript/main.pdf": "b0601d8c3b33271d8c7921e7aa7aa0b9706fc925be1f7a576c1b13ab4fe4e5be",
+    "manuscript/main.tex": "20809aef71100116e5e44c0b5a85cede1a2af6b69785cbeb4be3bb7c9dbe90ea",
+    "publication/README.md": "f2e2d52e1c3cd06c6290f2ff2a1699ee53e3f821a9002e03d654efa0312f4b8b",
+    "publication/RELEASE-NOTES-v0.1.0.md": "3aacc388e35ea38faad702bb2c1c71acc2976f171eb30e8e111e0ba41750c1c9",
+    "publication/RELEASE-NOTES-v0.2.0.md": "54c02abb168dc16c12942bdfd8dfaea5e3bb5e91c1d108ceef7b261fda70fc7f",
+    "publication/RELEASE-NOTES-v0.3.0.md": "35eb839c3e33b5477d56bbe1ab872c869533b43e72b9700725376e2a73c5a359",
+    "requirements.txt": "362239862b0cf8455ec97ff15682c3a498854c7c1e4d4510e5751f58073044f0",
+    "tools/build.py": "068fe79924dccfd964c52ff4deb5cc7cc5a5ea605d8748407e2ee73d85cb3038",
+    "tools/check_evaluator.py": "15049829142c9ed76a269fc0faf2572dc9a09683d88fe1f97d7f9fd76a37ac76",
+    "tools/check_package.py": "d3d23c6c4e8a98408ad0c43ad1b553835580de9ee1ef3bca3eb37045fba1743d",
+    "verification/build.json": "43f4803986af71df762544e37e2f6f37d4d11f5c49dcb5595820b5d7498f235c",
+    "verification/evaluator-diagnostic.json": "bb401f5fa2c2e7c5418069f7bd29cfe1549d03fb10abcfc2f07facb0b25dc1f2",
+    "verification/package.json": "d2ef0a2c1b7d0004d431422f0cb1cd7ee39341bb1b0b4b2355a9ed3a6060f68d",
+    "verification/publication-v0.2.0.json": "d78c721236808bf9b6068e74eafe1cab867668d1704d9d8cc70ecdefb2a2993e",
+    "verification/visual.json": "cc8f0ed76bd56d811f1fd5fdd2c3d7f46cfdf888d81432b2a140a2b02192e3a1"
+  },
+  "prior_version": {
+    "tag": "v0.2.0",
+    "doi": "10.5281/zenodo.24092922",
+    "unchanged": true
+  },
+  "boundaries": [
+    "Internal analytic review, not independent peer review or Lean certification.",
+    "Exact evaluator diagnostic retained from its original run; no full-policy execution.",
+    "This receipt and post-release citation updates are outside the immutable archive they verify."
+  ]
+}
