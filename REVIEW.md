@@ -1,5 +1,40 @@
 # Internal manuscript assessment
 
+## Current revision: 0.3.0, November 9, 2026
+
+Decision: **PUBLISH after the exact document/package freeze**, under Dan's instruction to implement the recommended next PaperMill revision and the recorded DOI-version authority. Source: S234 technical commit3444237b9d8a4e20150651cb149003587eab8896, whose original-contract audit closes the selected uniform-polynomial policy. This assessment covers mathematical, source/attribution, claims and artifact lenses internally with AI assistance. It is not multiple independent reviewers, independent peer review or Lean certification.
+
+### Changed mathematical claims and dispositions
+
+1. The main recursive theorem now has poly(n,S0,b) bit time and live space with fixed exponents independent of original degree. The exact spectral/query coefficient, per-fixed-input joint event, unconditional n cap, explicit ANF input and precision interface are unchanged. The one-batch all-coset theorem remains separate and valid.
+2. The factor-subset recurrence enumerates each unordered partition once by its least-element block. Injective assignments of residual coordinates to blocks are in bijection with fibers of all factor-to-coordinate maps. Same-coordinate assignments to different blocks vanish by w_j^2=0; repetitions within a Boolean fiber are grouped BEFORE this cancellation. Constants and cross-monomial cancellation are explicitly included. No factorial division occurs in characteristic two.
+3. The full exterior coefficient is exactly the determinant polarization of the canonical degree-r component. Under the propagated degree<=r promise it is the required top form. Above that degree it remains a defined component evaluator, without creating an incorrect whole-function difference identity or success claim.
+4. A nonzero mixed Boolean derivative has a binary point with value1, giving a two-variable quadratic restriction of norm2. Restriction cannot increase norm; therefore every nonaffine phase has B>=2. For d>=3, Q_min=2+k(2^(2d-1)-8)/3<=Q_B. Reading all n coordinates when Q_min>=n preserves the exact min(n,Q_B) bound, without a spectral oracle.
+5. Otherwise 4^d<6n+16. Exponential tables are allocated ONLY after this test. Monomials and entries are streamed, giving per-entry E0=O(P^5), raw T0=O(P^11), space W=O(P^3), and a conservative sequential bit bound O(P^20), P=n+S0+b+2. Threshold powers have O(d) bits. Every field/random/query/leaf/normalization/access/precision cost is included, even on bad tapes. No polynomial-degree query claim follows.
+6. Existing exact field verification, capped maximum-rank amplification, rank-preserving specialization, affine invariants, query lifting, quadratic diagonal corrections and conditional first-failure argument remain applicable because the replacement evaluator supplies exactly the same matrix on good histories. They were checked for correspondence, not silently assumed from finite tests.
+7. All endpoints remain: constant/affine/quadratic original inputs, zero residual dimension, actual degree below scheduled order, zero/repeated directions, bad rank histories and arbitrary separately encoded rational precision. No variance premise, numerical approximation or new probability loss appears.
+
+No unresolved blocking analytic finding was identified at the inherited/imported-theorem boundary. This internal finding is not external acceptance. The exact 256-fixture receipt is retained with its original source hash, seed234 and timeout; it was not rerun. It checks the evaluator only, not the full policy or asymptotic theorem.
+
+### Source transfer and claim review
+
+Reuse unchanged pinned Zhang/Moshkovitz-Zhu imports and the prior exact access-model comparison. Fresh November9 checks reconfirm Zhang v1's nonalgorithmic construction caveat and the TheoretiCS2025 determinantal-sieving source. The named transfer question is whether a field sieve already supplies canonical Boolean reduction. It does not directly: multilinear/odd support of z^2 differs from its Boolean reduction z. The new fiber identity addresses that interface. Hrubes's whole-multilinearization hardness does not prohibit the degree-dependent component operation plus the charged cutoff. This bounded comparison does not establish priority; no broad novelty search or source-author outreach occurred.
+
+The title, abstract, main theorem, algorithm, resource section, limitations, README, metadata and release notes state uniform polynomial total computation and preserve the query loss/per-input restrictions. The old finite-difference evaluator remains an explicitly labeled elementary baseline, not the runtime engine of the new theorem. No stronger existential depth, AA influence, unrestricted XOR log-rank or BPP/BQP claim is made.
+
+### Artifact and certification scope
+
+The v0.3.0 build passes with no TeX diagnostics; all13final rendered pages have been actually inspected with no layout defect. PDF SHA256 b0601d8c3b33271d8c7921e7aa7aa0b9706fc925be1f7a576c1b13ab4fe4e5be. The build and visual receipts bind this PDF/source; the package check must also pass before release. Preserve the v0.2.0 tag, archived PDF and receipt. The diagnostic export removes local machine paths while preserving original data, source hash and source-commit provenance. The release's new version DOI must be read from actual Zenodo ingestion; the existing concept DOI remains24092921. No new DOI is guessed.
+
+PaperMill S020 remains queued for the WHOLE revised manuscript: add the fiber/partition and exterior identities, norm gap, cutoff and uniform all-tape bit/live-space proof to its inherited algebra/field/probability/query scope. No formal build or accepted coverage is added. Existing jobs and queue eligibility remain untouched; scope expansion is not evidence of cheaper certification.
+
+Retained packaging finding: the first package check rejected the required peer-review disclosure because PDF extraction inserted a line break inside the phrase. The disclosure was present and visually inspected. The checker now normalizes whitespace for that exact phrase; no disclosure or mathematical claim was changed. Subsequent package checks bind the corrected checker. This was a document-check repair, not a mathematical failure or another evaluator diagnostic run.
+
+Final artifact disposition: PASS. Both working-tree and clean-index-export package checks pass, covering23listed files plus the package receipt, all13PDF pages and19embedded fonts. Source/metadata/diagnostic hashes and local links agree; the v0.2.0 publication receipt is byte-preserved. No TeX source changed after the actual all-page inspection. The exact frozen revision is ready for the authorized v0.3.0 release; actual ingestion remains a separate post-release check.
+
+## Historical v0.2.0 assessment (superseded only for the revised scope)
+
+
 Date: 2026-11-09. Candidate: preprint 0.2.0, expanding the unreleased 0.1.0 draft. Decision: **PUBLISH after the exact document/package freeze**, under Dan's explicit expansion and DOI-version instruction. No earlier DOI exists in the inspected release state. This is an internal AI-assisted review across mathematical, source, claims and artifact lenses, not independent peer review, multiple independent reviewers or formal certification.
 
 ## Expanded contribution and statement correspondence

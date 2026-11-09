@@ -1,0 +1,92 @@
+{
+  "caps": {
+    "fixtures": 256,
+    "m": 5,
+    "n": 9,
+    "r": 5,
+    "source_monomial_degree": 6
+  },
+  "controls": [
+    {
+      "canonical_degree": 0,
+      "name": "z_squared_plus_z",
+      "r": 1,
+      "value": 0
+    },
+    {
+      "canonical_degree": 3,
+      "name": "quartic_to_cubic",
+      "r": 3,
+      "value": 2
+    },
+    {
+      "canonical_degree": 3,
+      "name": "above_order_component",
+      "r": 1,
+      "value": 2
+    },
+    {
+      "canonical_degree": 1,
+      "name": "below_order",
+      "r": 2,
+      "value": 0
+    },
+    {
+      "canonical_degree": 3,
+      "name": "repeated_directions",
+      "r": 3,
+      "value": 0
+    },
+    {
+      "canonical_degree": 3,
+      "name": "zero_direction",
+      "r": 3,
+      "value": 0
+    },
+    {
+      "canonical_degree": 2,
+      "name": "affine_offsets",
+      "r": 2,
+      "value": 1
+    },
+    {
+      "canonical_degree": 0,
+      "name": "offset_cancellation",
+      "r": 1,
+      "value": 0
+    },
+    {
+      "canonical_degree": 0,
+      "name": "constant_source",
+      "r": 1,
+      "value": 0
+    },
+    {
+      "canonical_degree": 0,
+      "name": "order_exceeds_dimension",
+      "r": 2,
+      "value": 0
+    }
+  ],
+  "degree_relations": {
+    "above": 31,
+    "below": 180,
+    "equal": 45
+  },
+  "elapsed_seconds": 0.5628843000158668,
+  "field": "F2[t]/(t^2+t+1)",
+  "fixture_sha256": "8a0f8bd9da7fda1c4c37c40d60e4d8fce060046604d76f8ec67603191a1ce83d",
+  "fixtures": 256,
+  "scope": "Exact evaluator diagnostic only; no full-policy implementation or asymptotic verification.",
+  "seed": 234,
+  "source_sha256": "15049829142c9ed76a269fc0faf2572dc9a09683d88fe1f97d7f9fd76a37ac76",
+  "status": "PASS",
+  "original_source_commit": "3444237b9d8a4e20150651cb149003587eab8896",
+  "started_utc": "2026-11-09T21:26:26.930636+00:00",
+  "wall_seconds": 0.9496341999620199,
+  "timeout_seconds": 120,
+  "runs": 1,
+  "returncode": 0,
+  "stderr": "",
+  "provenance": "Sanitized export of the original S234 run; not rerun during manuscript revision."
+}
