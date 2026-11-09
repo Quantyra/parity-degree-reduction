@@ -4,7 +4,7 @@
 
 [Manuscript PDF](manuscript/main.pdf) ? [LaTeX source](manuscript/main.tex) ? [Review and scope](REVIEW.md) ? [Publication record](publication/README.md)
 
-**Preprint candidate, version 0.2.0.** This expands the unreleased 0.1.0 working draft. The first GitHub release and Zenodo archive are authorized and pending exact-package checks; no prior DOI is assumed.
+**Published preprint, version 0.2.0.** [Version DOI 10.5281/zenodo.24092922](https://doi.org/10.5281/zenodo.24092922) ? [Concept DOI 10.5281/zenodo.24092921](https://doi.org/10.5281/zenodo.24092921) ? [GitHub release](https://github.com/Quantyra/parity-degree-reduction/releases/tag/v0.2.0). This is the first archive, expanding the unreleased 0.1.0 working draft. All 20 archived files match release commit `92d99bbde493f01e347576c185391fd7d73beaeb` byte for byte; [verification receipt](verification/publication-v0.2.0.json).
 
 The paper gives two attributed algorithmic corollaries for an explicit squarefree Boolean polynomial p of degree d. For f=(-1)^p, let B be its Fourier spectral norm and s its Fourier sparsity; neither is an algorithm input.
 

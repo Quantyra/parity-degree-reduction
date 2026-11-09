@@ -35,8 +35,16 @@ def main():
     assert creator["orcid"] == "0009-0002-9123-7435"
     assert zenodo["upload_type"] == "publication"
     assert zenodo["publication_type"] == "preprint"
-    assert "doi" not in zenodo and "doi" not in preferred
-    assert "publication_date" not in zenodo and "date-released" not in citation
+    assert "doi" not in zenodo and "publication_date" not in zenodo
+    publication_path = ROOT / "verification/publication-v0.2.0.json"
+    if publication_path.exists():
+        publication = json.loads(publication_path.read_text(encoding="utf-8"))
+        assert publication["status"] == "PUBLISHED_AND_VERIFIED"
+        assert citation["doi"] == preferred["doi"] == publication["version_doi"]
+        assert str(citation["date-released"]) == "2026-11-09"
+        assert publication["pdf_sha256"] == build["pdf_sha256"]
+    else:
+        assert "doi" not in preferred and "date-released" not in citation
     assert build["source_sha256"] == sha(ROOT / "manuscript/main.tex")
     assert build["pdf_sha256"] == sha(ROOT / "manuscript/main.pdf")
     assert build["final_log_diagnostics"] == []
@@ -62,6 +70,8 @@ def main():
         "publication/README.md", "publication/RELEASE-NOTES-v0.1.0.md",
         "publication/RELEASE-NOTES-v0.2.0.md",
     ]
+    if publication_path.exists():
+        required.append("verification/publication-v0.2.0.json")
     for name in required:
         path = ROOT / name
         assert path.is_file() and path.stat().st_size > 0, name
@@ -84,7 +94,7 @@ def main():
         "files": {name: sha(ROOT / name) for name in sorted(required)},
         "pages": len(pdf),
         "embedded_fonts": len(fonts),
-        "release_or_doi_created": False,
+        "release_or_doi_created_by_this_check": False,
     }
     (ROOT / "verification/package.json").write_text(
         json.dumps(receipt, indent=2) + "\n", encoding="utf-8", newline="\n"

@@ -2,7 +2,7 @@
 
 Version 0.2.0 expands the unreleased 0.1.0 working draft to include the complete recursive parity policy. Fresh GitHub inspection found no previous release or DOI. This is the intended first public archive, not an update to an invented earlier DOI.
 
-Dan authorized expansion and DOI publication/versioning on November 9, 2026. The repository's active release webhook to Zenodo is already verified. After final review and artifact checks, freeze the exact commit and PDF hash, publish v0.2.0, then verify the actual archive, metadata and version/concept DOIs. Current state: candidate preparation; publication is not yet claimed.
+Dan authorized expansion and DOI publication/versioning on November 9, 2026. The repository's active release webhook to Zenodo is already verified. After final review and artifact checks, freeze the exact commit and PDF hash, publish v0.2.0, then verify the actual archive, metadata and version/concept DOIs. Current state: **PUBLISHED AND VERIFIED**, November 9, 2026. [Version DOI 10.5281/zenodo.24092922](https://doi.org/10.5281/zenodo.24092922); [concept DOI 10.5281/zenodo.24092921](https://doi.org/10.5281/zenodo.24092921). All 20 archive files match release commit `92d99bbde493f01e347576c185391fd7d73beaeb` byte for byte. The PDF SHA-256 is `1e5705f3806783ab1bfd317c17b47f337f4318b43a9e9578f9c1c86e978d5139`. [Post-release receipt](../verification/publication-v0.2.0.json) also verifies the release attachment and metadata. No tag was moved.
 
 The root .zenodo.json requests publication/preprint with confirmed author, affiliation, ORCID and CC BY 4.0 metadata; it takes precedence over CFF in GitHub ingestion. The tracked PDF is part of the repository archive. No publishing token or release automation is included.
 
