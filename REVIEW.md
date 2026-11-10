@@ -1,6 +1,45 @@
 # Internal manuscript assessment
 
-## Current revision: 0.3.0, November 9, 2026
+## Current revision: 0.4.0, November 9, 2026
+
+Decision: **PUBLISH subject to the exact package checks below**, under Dan's approval to consolidate S235-S237, issue the next DOI version and update PaperMill. This is an internal AI-assisted review across mathematical, source/attribution, claims and artifact lenses. It is not multiple independent reviewers, independent peer review or formal certification.
+
+### Mathematical and implementation findings
+
+1. The recursive query coefficient is now exactly (2^(2d-1)-5)/3 multiplying log2 B; the binary-intersection factor k is removed. The per-fixed-input joint correctness/query event, all-tape n cap, explicit original ANF and analysis-only spectral quantities are preserved. The separate finite-field one-batch theorem retains its original k loss.
+2. Independent anchor coordinates are chosen from 2^k distinct binary polynomials in a single indeterminate, considered in F2(t). The finite-set zero bound concerns polynomial identity, not evaluation at zero. Generic-rank amplification remains probabilistic; actual rank is computed exactly. There is no generic-rank oracle or field-construction failure.
+3. The Boolean fiber/exterior recurrence has degree at most |I intersect [r-2]|(k-1) at every mask, including off-promise histories. Full-pivot Schur entries are ratios of original bordered minors; reduction after each scalar operation controls numerator/denominator sizes. Sequential cofactor determinants construct an actual rational-kernel basis without enumerating all maximal minors.
+4. Each binary dependence repair divides one column combination exactly by t. Its determinant transformation is 1/t, so rational independence and the kernel persist. A fixed initially nonzero maximal minor loses one unit of t-valuation per repair, giving at most nu*Rs*D steps. Polynomial degrees never increase. Termination need not force that particular minor's valuation to zero.
+5. The imported generic strong identity specializes on a nonzero pivot chart. The resulting identity has constant binary coefficients, so repaired polynomial columns can be evaluated at zero. Their rank is retained by repair; N(0) may lose rank. The proof does not replace the target subspace by the larger kernel of N(0).
+6. Affine-map invariants, lifted original-input queries, all-coset degree reduction, exact quadratic leaves and a first-failure decomposition establish arbitrary recursion. Only good-history correctness and the smaller query allowance are probabilistic; the n cap, resource bounds and termination hold on every tape.
+7. B>=2 for nonaffine phases justifies Qmin=2+(2^(2d-1)-8)/3 before table allocation. On the informative branch 4^d<6n+4. The proof charges coefficient degrees, rank/cofactor/repair work, precision, all samples, leaves, random bits and storage, with loose indexed time O(P0^15), live space O(P0^5), sequential time O(P0^28). Optional rational accuracy parsing is separately paid. No variance or approximation assumption is introduced.
+8. The archived implementation caches source masks, factor subsets and anchor components. Its added cache/transcript/leaf costs are explicitly charged; it is not incorrectly equated with the exact streamed space expression. Read-only reference instrumentation supplies no answers to the query policy. This is source correspondence and an analytic audit, not a machine-checked refinement proof.
+
+No blocking analytic finding was identified at these stated/imported interfaces. This finding is not external acceptance. The result matches the imported existential query scale under a randomized visited-path contract; it does not improve existential depth or produce a simultaneously correct full sampled tree.
+
+### Retained validation and provenance
+
+The policy/checker sources and five original run files are byte-preserving exports of technical commit8ee54bd8520a2be3e37b8bce7b582b8cdcee5150, with per-file hashes in verification/policy-provenance.json. Original S236 run1 failed before fixtures because of an isolated-Python import path. Run2 completed21 trajectories:19 certified good-event successes and two deliberately bad-event errors. Its final aggregate coverage assertion failed, so the campaign remains STOP. Thousands of basis repairs were not evidence that the sampled matrix lost rank at zero.
+
+Separately preregistered S237 passed both total rank collapse2->0 and partial collapse4->2, all6,523 assertions,15 sampled matrices,21 cosets,21 strong-derivative checks and four negative-control predicates. The partial example has polynomial content one. These cases reject unrepaired specialization and the naive whole kernel at zero. They close the named implementation-coverage gap, not a general mathematical proof obligation or success-probability estimate. The original256-fixture component diagnostic is also preserved.
+
+No research experiment was rerun for publication. The new portable opt-in replay wrapper is statically reviewed/compiled but unexecuted. It calls the original routines and retains their acceptance predicates, including the earlier expected STOP. Machine-specific controllers and local-path stderr are omitted; their hashes remain archival provenance in the original receipts. The omission and first import failure are disclosed.
+
+### Named source transfer and claim boundary
+
+The named transfer question is whether Zhang v1 already supplies a polynomial computational budget for dimension-preserving descent. Primary-source comparison on November9 reconfirms [Lemma3.14 and Remark3.17](https://arxiv.org/html/2611.03452v1): descent is an imported structural idea, while that paper explicitly leaves construction time unclaimed over its multivariate function field. The present statement is a randomized explicit-input computational implementation with bounded one-variable arithmetic and a charged cutoff. The [Moshkovitz-Zhu v1 rank comparison](https://arxiv.org/html/2603.11038v1) remains the inherited structural dependency over F2. Prior evaluator/source comparisons are retained; no broad literature screen or source-author outreach is performed. Novelty and priority remain unestablished.
+
+Title, abstract, theorem, resources, implementation discussion, README, metadata and release notes agree on these boundaries. The revision does not claim AA, unrestricted XOR log-rank, general quantum simulation or BPP/BQP progress. PaperMill's full queued certification must expand to the polynomial anchors, rank/degree/repair arguments, specialization under matrix-rank collapse, recursive probability/query bound, cutoff and implementation-resource correspondence, alongside all retained one-batch and imported obligations. No certificate, queue promotion or formal job is created.
+
+### Exact artifact disposition
+
+The16-page final PDF has SHA25691787df9a16b5def8372487dc6bd13a5357e0a5a40fce7f1c620d2b9c41ed1be. Build diagnostics are empty. All16final pages were actually inspected; after the last two wording corrections, changed pages7 and15 were inspected again and the other14 renders matched their inspected hashes. No visible defect was found. Build, visual and package receipts bind the final document and all public package files. Package checks cover source/log provenance, metadata, embedded fonts, disclosure, local links and private-path/token exclusion; they are not research execution.
+
+Release is authorized only after working-tree and clean-export package checks pass. Preserve earlier publication receipts and tags byte for byte. Freeze a new v0.4.0 commit/tag, reuse concept DOI10.5281/zenodo.24092921 and verify the actual ingested archive before claiming publication verified. Post-release DOI/citation receipts stay outside the immutable archive they verify.
+
+## Historical v0.3.0 assessment
+
+### Version0.3.0, November9,2026
 
 Decision: **PUBLISH after the exact document/package freeze**, under Dan's instruction to implement the recommended next PaperMill revision and the recorded DOI-version authority. Source: S234 technical commit3444237b9d8a4e20150651cb149003587eab8896, whose original-contract audit closes the selected uniform-polynomial policy. This assessment covers mathematical, source/attribution, claims and artifact lenses internally with AI assistance. It is not multiple independent reviewers, independent peer review or Lean certification.
 

@@ -1,0 +1,54 @@
+{
+  "source_commit": "8ee54bd8520a2be3e37b8bce7b582b8cdcee5150",
+  "scope": "Source-preserving public export of retained policy/checker code and completed-run logs. No research execution for publication.",
+  "files": {
+    "implementation/s236_policy.py": {
+      "original_path": "src/s236_policy.py",
+      "sha256": "46aa1f3c67f55e38ef945ded106c868a03176912d2a3f67121b630b6ac6cd5e6",
+      "byte_identical": true
+    },
+    "implementation/check_s236_policy.py": {
+      "original_path": "src/check_s236_policy.py",
+      "sha256": "6fff7195b8c2c8d12664c9838f0da0024a27cbabc65096b96f935a505233a7cd",
+      "byte_identical": true
+    },
+    "implementation/check_s237_rank_collapse.py": {
+      "original_path": "src/check_s237_rank_collapse.py",
+      "sha256": "caff965639af7b570dcb9b0dfaa2b541377ee0588d2c5e4e0739838365387e53",
+      "byte_identical": true
+    },
+    "verification/runs/s236-complete-policy-run1-2026-11-09.json": {
+      "original_path": "artifacts/s236-complete-policy-run1-2026-11-09.json",
+      "sha256": "44fa6eda67215d23f69ee0fe9bd1a8141eca7d9372d81939f16e16c08c692c6b",
+      "byte_identical": true
+    },
+    "verification/runs/s236-complete-policy-run2-2026-11-09.json": {
+      "original_path": "artifacts/s236-complete-policy-run2-2026-11-09.json",
+      "sha256": "bd966e0da5a56b4748513441f437476bcd37e60a8687951a546654caf9d5fd01",
+      "byte_identical": true
+    },
+    "verification/runs/s236-complete-policy-run2-2026-11-09.jsonl": {
+      "original_path": "artifacts/s236-complete-policy-run2-2026-11-09.jsonl",
+      "sha256": "1a47ffb579e38a764f79c05485b33cae1546864c218c645a68f1ac4e891e7449",
+      "byte_identical": true
+    },
+    "verification/runs/s237-rank-collapse-run1-2026-11-09.json": {
+      "original_path": "artifacts/s237-rank-collapse-run1-2026-11-09.json",
+      "sha256": "043eb851b68595619f11dca281c03c0851b9e70f6590212659377b20d0b609f6",
+      "byte_identical": true
+    },
+    "verification/runs/s237-rank-collapse-run1-2026-11-09.jsonl": {
+      "original_path": "artifacts/s237-rank-collapse-run1-2026-11-09.jsonl",
+      "sha256": "f3fc876a3e591a68e9bbfc414adb0fd087b0edafc73b1d5ef1eddc7d2b074104",
+      "byte_identical": true
+    }
+  },
+  "omitted": [
+    "Machine-specific bounded controllers and stderr with local machine paths; controller hashes remain archival provenance in original receipts."
+  ],
+  "startup_failure": "S236 run1 failed before any fixture: ModuleNotFoundError: No module named s236_policy. An isolated-Python import-path correction preceded run2.",
+  "outcomes": {
+    "s236": "STOP: all21 trajectories completed,19 certified good-event successes and two deliberate bad-event errors; final matrix-rank-collapse coverage absent.",
+    "s237": "PASS: separately preregistered total/partial rank-collapse trajectories,6523 assertions; closes the missing coverage without changing S236 STOP."
+  }
+}

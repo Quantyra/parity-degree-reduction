@@ -1,29 +1,33 @@
 # Polynomial-time parity-query policies for explicit Boolean polynomials
 
-**Daniel Fredriksen · Quantyra Inc. · [ORCID 0009-0002-9123-7435](https://orcid.org/0009-0002-9123-7435)**
+**Daniel Fredriksen ? Quantyra Inc. ? [ORCID 0009-0002-9123-7435](https://orcid.org/0009-0002-9123-7435)**
 
-[Manuscript PDF](manuscript/main.pdf) · [LaTeX source](manuscript/main.tex) · [Review and scope](REVIEW.md) · [Publication record](publication/README.md)
+[Manuscript PDF](manuscript/main.pdf) ? [LaTeX source](manuscript/main.tex) ? [Review and scope](REVIEW.md) ? [Publication record](publication/README.md)
 
-**Version 0.3.0: published and archive-verified.** [Version DOI10.5281/zenodo.24093687](https://doi.org/10.5281/zenodo.24093687); [release](https://github.com/Quantyra/parity-degree-reduction/releases/tag/v0.3.0). All24archived files match release5f55a6371b0cac793f8784ffabdb1936ea7152be byte for byte; [verification receipt](verification/publication-v0.3.0.json). The earlier [v0.2.0 archive](https://doi.org/10.5281/zenodo.24092922) remains immutable; [concept DOI](https://doi.org/10.5281/zenodo.24092921). Current release/archive status and exact identifiers are in the publication record.
+**Version 0.4.0: prepared for the authorized reviewed release.** This revision removes the extra logarithmic query factor and includes the complete implementation and retained validation. A new version DOI will be recorded only after actual ingestion. The published [v0.3.0](https://doi.org/10.5281/zenodo.24093687) and earlier versions remain immutable under [concept DOI10.5281/zenodo.24092921](https://doi.org/10.5281/zenodo.24092921).
 
-The main theorem gives a uniformly polynomial-time on-demand parity-query policy for an explicit squarefree Boolean ANF p of original degree d and encoding length S. For each fixed hidden x, with probability at least 1-delta, it returns p(x) correctly and asks at most min(n,O(1+4^d log(s) log(nd))) parity queries, where s is Fourier sparsity. Fourier norm and sparsity are analysis quantities, not inputs. Total bit time and working space are poly(n,S,log(1/delta)) with fixed exponents independent of d. An explicit precision input is used; arbitrary rational parsing has a separately charged cost. Every random tape terminates and uses at most n queries.
+For every explicit squarefree Boolean ANF p of original degree d>=3, and each fixed hidden input x, the randomized on-demand policy jointly returns p(x) correctly and uses at most min(n,1+[(2^(2d-1)-5)/3]log2 B) queries with probability at least1-2^-b. Here B is the Fourier spectral norm of (-1)^p, used only in analysis. Since B<=sqrt(s), this is min(n,O(1+4^d log s)) queries. Total bit time and live space are polynomial in n, original encoding length and b with fixed exponents independent of d. All random tapes terminate and ask at most n queries. Exact low-degree endpoints and separately charged arbitrary-rational precision parsing remain explicit.
 
-A factor-partition recurrence groups repeated Boolean variables before exterior-algebra evaluation. A proved norm gap justifies reading all coordinates when the query allowance already permits n; otherwise 4^d<6n+16, making the recurrence's tables and work polynomial. The original ANF and a compact affine map supply all inputs. This strengthens v0.2.0's degree-parameterized computation while preserving its exact query/error guarantee.
+Polynomial anchors in one variable preserve generic rank with bounded failure probability. Exact rational elimination finds an attaining actual-rank minor. A valuation-budgeted repair returns a binary kernel space of codimension equal to the sampled rank, removing the previous k=ceil(log2(8nd)) multiplier. The canonical factor-partition evaluator and the improved cutoff4^d<6n+4 pay all computation. The manuscript explicitly charges the cached implementation's additional storage.
 
-The paper retains the separately useful polynomial-time construction of one fixed parity batch, with exact degree reduction on every coset on its success event. The structural inputs are [Zhang v1](https://arxiv.org/abs/2611.03452v1) and [Moshkovitz-Zhu v1](https://arxiv.org/abs/2603.11038v1). The existential query bound is stronger by a logarithmic factor. The recursive guarantee is per input, not a globally correct sampled tree. Novelty remains unestablished; unrestricted XOR log-rank and BPP versus BQP remain unresolved.
+The separate finite-field one-batch theorem and its logarithmic binary-intersection loss remain valid. Structural inputs are [Zhang v1](https://arxiv.org/abs/2611.03452v1) and [Moshkovitz-Zhu v1](https://arxiv.org/abs/2603.11038v1). The recursive policy matches the retained existential query scale under its randomized per-input contract; it does not construct an everywhere-correct sampled deterministic tree. Novelty is unestablished. Unrestricted XOR log-rank and BPP versus BQP remain unresolved.
 
-## Evidence and build
+## Implementation and evidence
 
-The argument and costs are analytic. [One retained exact diagnostic](verification/evaluator-diagnostic.json) passed 256 fixtures; its [source](tools/check_evaluator.py) compares the component evaluator against truth-table Boolean reduction and determinant evaluation. It is not an implementation or benchmark of the complete policy and does not prove asymptotic correctness. The original run is preserved, not repeated for publication.
+The [complete policy and exact checkers](implementation/README.md) are source-preserving exports; [provenance](verification/policy-provenance.json) binds their original identities and raw logs/receipts. The S236 campaign completed21 trajectories, including19 certified good-event successes and two deliberately bad-tape errors, but remains STOP because its final rank-collapse coverage gate failed. A separately preregistered S237 check passed both total and partial rank collapse, all6,523 assertions, and correct3/7-query complete trajectories. The earlier startup import failure and diagnostic history remain visible. No experiment was rerun for this release; the new portable replay launcher was statically checked, not executed.
 
-Use Python 3.10+, Tectonic 0.17.0 and [requirements.txt](requirements.txt):
+The [256-fixture component diagnostic](verification/evaluator-diagnostic.json) is also retained unchanged. Finite tests support implementation coverage; the general guarantees follow from the analytic proof and attributed imports. No independent peer review, formal certificate or machine-checked software refinement is claimed.
+
+## Document build
+
+Use Python3.10+, Tectonic0.17.0 and [requirements.txt](requirements.txt):
 
     python -m pip install -r requirements.txt
     python tools/build.py --tectonic /path/to/tectonic --render
     python tools/check_package.py
 
-Build tools never publish. Inspect changed PDF pages before updating [visual evidence](verification/visual.json). [Build](verification/build.json) and [package](verification/package.json) receipts establish document consistency, not mathematical certification.
+Document tools never publish or run the policy experiments. [Build](verification/build.json), [visual](verification/visual.json) and [package](verification/package.json) receipts establish artifact consistency, not mathematical certification. Replay instructions and expected historical failure are separate.
 
-## Citation and status
+## Citation and ownership
 
-[CITATION.cff](CITATION.cff) and [.zenodo.json](.zenodo.json) retain the confirmed author, affiliation, ORCID and preprint metadata. Original package material is licensed under [CC BY 4.0](LICENSE). External papers are cited, not redistributed. OpenAI Codex assisted derivation, source comparison, drafting and package preparation. [REVIEW.md](REVIEW.md) records internal AI-assisted mathematical, source, claims and artifact checks. No independent peer review or Lean certification is claimed. PaperMill retains publication and queued full-manuscript certification ownership.
+[CITATION.cff](CITATION.cff), [.zenodo.json](.zenodo.json) and [CC BY4.0](LICENSE) retain Daniel Fredriksen, Quantyra Inc. and the confirmed ORCID. OpenAI Codex assisted derivation, source comparison, implementation, drafting and packaging. [REVIEW.md](REVIEW.md) records the internal mathematical/source/claims/artifact review. PaperMill owns publication and queued full-manuscript certification; this revision starts no formal proof job.

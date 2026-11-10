@@ -1,7 +1,7 @@
 {
   "date": "2026-11-09",
-  "scope": "Actual assistant inspection of all 13 rendered final manuscript pages; document layout only",
-  "pdf_sha256": "b0601d8c3b33271d8c7921e7aa7aa0b9706fc925be1f7a576c1b13ab4fe4e5be",
+  "scope": "Actual assistant inspection of all 16 final rendered pages; document layout only",
+  "pdf_sha256": "91787df9a16b5def8372487dc6bd13a5357e0a5a40fce7f1c620d2b9c41ed1be",
   "pages_inspected": [
     1,
     2,
@@ -15,27 +15,33 @@
     10,
     11,
     12,
-    13
+    13,
+    14,
+    15,
+    16
   ],
   "verdict": "PASS_DOCUMENT_LAYOUT",
   "observations": [
-    "All 13 final pages inspected at 100 dpi, including promoted theorem, fiber-partition proof, cutoff, all-tape resources and six references.",
-    "No clipping, overlap, missing glyphs or unresolved references observed.",
-    "Nonfatal Fontconfig environment message retained; no corresponding visible defect."
+    "All16 pages inspected at100dpi. After two editorial corrections, final pages7 and15 were inspected again; the other14 renders are byte-identical to their inspected versions.",
+    "Equations, proof continuations, validation table and references are legible; no clipping, overlap, missing glyphs or unresolved references observed.",
+    "Nonfatal Fontconfig message retained; no corresponding visible defect."
   ],
   "render_sha256": {
-    "1": "89520efa35768c224a4461e72b149f1212bb8965e6d342182e81b730346516b7",
-    "2": "877f9a9004157f429f2e620dadf580e17d2910a05f60fe1325d5298bb2785581",
+    "1": "cb5c28000214489ad06d31c55aaa0a211a25dad6b54b5a585b6f5df37567a778",
+    "2": "3088d4d1aecd992f2bc7f36bf72e3a63a41deb08d4131276e01cb4ba20936641",
     "3": "ec4acb5cc2ba1493452e6dd28ac0a0df8c441df87a7cfaacf2675fe6a235b31a",
     "4": "75517e61f9dbf0719c471f2a970cda79fb36f5578ce9da8081a1a1ad147ba31d",
     "5": "9c05dc82cee40c378541d9e0db47ec37dfeeef577e8a0c413dbe7deb9c995371",
-    "6": "ed4c5a9c9501cc8c2cabb81db537d8e97b2a264a511093ba9d13b81c4c4eca44",
-    "7": "ba65a3d938622f20088ce36a4e71fb6990ec53aab6eef10969e5c2954ee232dd",
-    "8": "d5e508657c40212101bdea1da8b12154638293d9005d5e7c3180ce82d9928084",
-    "9": "f0f1b62ce5a3caa08be9c14f49b6a57d18ad2b2579ad9d2b305cbe847684e983",
-    "10": "325a2ba212d0991392ed650f9079987f1a56654bf6aad4cef7f36657471218d4",
-    "11": "e844a096942a169e650e2ae592a5c6c566f64de853e3760ea445cdd54a12d124",
-    "12": "be5f601ee6ffa2b659d4fef450541f73f4d46066ff24edfe441405fef5ba445e",
-    "13": "8d681ae849a684cee95c32352a9d46614ce1ec0255a56a3750587dafe5bb05f7"
+    "6": "c4b4a674c38a07717e6442cf42428965c60bd71a313012145ad52e0a9025eec0",
+    "7": "14fc68434aa6e1a81b172872ad1f16ce781395a9145f6304d950db901f71b6bf",
+    "8": "b77baec2d40946dc152b638bb44228c77d9577151f13ed759d3fde05c32cfa17",
+    "9": "070b3ca12972e3bef531fb4fbf0b811d535f86bfde90b60f398fe8ecf298ba6e",
+    "10": "874e7ef93da5fd901b2372387c4f1df3140b46af8fdfe719e46339ce0d693312",
+    "11": "269d06753ffb950b880abd457e3a0fd7d6eba7fea1db2f3530d42a2d609da479",
+    "12": "9245894e7d22f1ec6a9bca92c38c9f90b19bef374a4a28af8de8e6608a73bfb5",
+    "13": "caadca061ffa30efa15a901cd34e3de8fbef8e77623b37b815569ec30a64a30d",
+    "14": "38815387589ee6f439bbe39e558c1f5d7cab3986e3b204426e0e98ffee249ccb",
+    "15": "e321a3f6232e0c865d5b7926d5e32a7c13d0c4580b19028e69988db425065d85",
+    "16": "eade617dff79499c035f6fa322273eb8e67750a981459d390276b036ceaa9f45"
   }
 }

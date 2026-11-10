@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "run": "run1",
+  "started_utc": "2026-11-10T00:38:03.808755+00:00",
+  "technical_commit": "21bfcda9efe8a1a8c28caa53b91ecf6b09500f41",
+  "source_sha256": {
+    "s236_policy.py": "46aa1f3c67f55e38ef945ded106c868a03176912d2a3f67121b630b6ac6cd5e6",
+    "check_s236_policy.py": "6fff7195b8c2c8d12664c9838f0da0024a27cbabc65096b96f935a505233a7cd",
+    "check_s237_rank_collapse.py": "caff965639af7b570dcb9b0dfaa2b541377ee0588d2c5e4e0739838365387e53",
+    "run_s237_bounded.py": "1878fdd305927487793cecda8602e65237e4fa4373bfcecc6c5e2a21a13d4aab"
+  },
+  "preregistration_commit": "4c8d70a646e70d1aa80235dcc446bfbe243b8271",
+  "preregistration_sha256": "2cc0b421fe0aa8e5f6b4f89a7d22871ed707d032f0d544d71c4d215f658628b2",
+  "source_unchanged_during_run": true,
+  "limits": {
+    "timeout_seconds": 120,
+    "peak_working_set_bytes": 134217728,
+    "output_bytes": 2097152,
+    "memory_poll_seconds": 0.05
+  },
+  "stop_reason": null,
+  "exit_code": 0,
+  "wall_seconds": 14.196067000040784,
+  "peak_working_set_bytes": 22769664,
+  "memory_samples": 260,
+  "stdout_sha256": "f3fc876a3e591a68e9bbfc414adb0fd087b0edafc73b1d5ef1eddc7d2b074104",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "output_bytes": 10443,
+  "parse_error": null,
+  "completion": {
+    "event": "complete",
+    "status": "PASS",
+    "trajectories": 2,
+    "rank_drops": [
+      [
+        2,
+        0
+      ],
+      [
+        4,
+        2
+      ]
+    ],
+    "counts": {
+      "assertions": 6523,
+      "sample_matrices": 15,
+      "cosets": 21,
+      "strong_derivatives": 21,
+      "negative_transcripts": 0,
+      "max_reference_terms": 80,
+      "max_truth_table": 8192
+    },
+    "source_sha256": {
+      "s236_policy.py": "46aa1f3c67f55e38ef945ded106c868a03176912d2a3f67121b630b6ac6cd5e6",
+      "check_s236_policy.py": "6fff7195b8c2c8d12664c9838f0da0024a27cbabc65096b96f935a505233a7cd",
+      "check_s237_rank_collapse.py": "caff965639af7b570dcb9b0dfaa2b541377ee0588d2c5e4e0739838365387e53",
+      "run_s237_bounded.py": "1878fdd305927487793cecda8602e65237e4fa4373bfcecc6c5e2a21a13d4aab"
+    },
+    "repairs": 270,
+    "negative_control_rejections": 4,
+    "elapsed_seconds": 13.142389300046489,
+    "scope": "Separate S237 rank-collapse coverage; S236 campaign remains STOP. No general-bound improvement, empirical probability estimate, independent researcher review or formal certificate."
+  },
+  "finished_cases": [
+    "total_rank_collapse",
+    "partial_rank_collapse"
+  ],
+  "last_started_case": "partial_rank_collapse"
+}

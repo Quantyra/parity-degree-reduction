@@ -1,33 +1,33 @@
 cff-version: 1.2.0
-message: "Please cite the preprint in preferred-citation. The DOI identifies the verified version 0.3.0 archive."
+message: Please cite the preprint in preferred-citation. The new version DOI is recorded
+  only after verified publication.
 type: software
-title: "Polynomial-time parity-query policies for explicit Boolean polynomials: manuscript archive"
-version: 0.3.0
-date-released: 2026-11-09
-doi: 10.5281/zenodo.24093687
+title: 'Polynomial-time parity-query policies for explicit Boolean polynomials: manuscript
+  archive'
+version: 0.4.0
 authors:
-  - family-names: Fredriksen
-    given-names: Daniel
-    affiliation: Quantyra Inc.
-    orcid: https://orcid.org/0009-0002-9123-7435
+- family-names: Fredriksen
+  given-names: Daniel
+  affiliation: Quantyra Inc.
+  orcid: https://orcid.org/0009-0002-9123-7435
 license: CC-BY-4.0
 repository-code: https://github.com/Quantyra/parity-degree-reduction
 url: https://github.com/Quantyra/parity-degree-reduction
 keywords:
-  - Boolean polynomials
-  - parity decision trees
-  - degree reduction
-  - finite fields
-  - Fourier sparsity
+- Boolean polynomials
+- parity decision trees
+- degree reduction
+- finite fields
+- Fourier sparsity
 preferred-citation:
-  doi: 10.5281/zenodo.24093687
   type: article
-  title: "Polynomial-time parity-query policies for explicit Boolean polynomials"
+  title: Polynomial-time parity-query policies for explicit Boolean polynomials
   authors:
-    - family-names: Fredriksen
-      given-names: Daniel
-      affiliation: Quantyra Inc.
-      orcid: https://orcid.org/0009-0002-9123-7435
+  - family-names: Fredriksen
+    given-names: Daniel
+    affiliation: Quantyra Inc.
+    orcid: https://orcid.org/0009-0002-9123-7435
   year: 2026
-  notes: "Preprint, version 0.3.0; no independent peer review or formal certification claimed."
+  notes: Preprint, version0.4.0; internal AI-assisted review, no independent peer
+    review or formal certification claimed.
   url: https://github.com/Quantyra/parity-degree-reduction/blob/main/manuscript/main.pdf

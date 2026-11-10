@@ -1,5 +1,11 @@
 # Publication and archive record
 
+## Version0.4.0: authorized candidate
+
+Dan approved the consolidated revision incorporating the improved query bound, complete implementation, retained validation, PaperMill scope update and a new DOI version. Candidate decision: PUBLISH after working-tree and clean-export package checks pass; the internal final document review is recorded in REVIEW.md. The16-page manuscript removes the recursive logarithmic query loss while retaining polynomial resources, explicit inputs and per-input probability limits. Cache costs and the historical STOP/separate PASS distinction are explicit. No research experiment or formal build is rerun for publication.
+
+Use [release notes](RELEASE-NOTES-v0.4.0.md). Freeze the reviewed package, publish a new v0.4.0 tag/release through the existing Zenodo connection, then verify the actual archive and DOI. Preserve all prior tags, receipts and the existing concept DOI10.5281/zenodo.24092921. No new DOI is guessed. Post-release receipt/citation updates remain outside the immutable release archive.
+
 ## Version 0.3.0
 
 Current state: **PUBLISHED AND VERIFIED**, November9,2026. [Version DOI10.5281/zenodo.24093687](https://doi.org/10.5281/zenodo.24093687), [concept DOI10.5281/zenodo.24092921](https://doi.org/10.5281/zenodo.24092921), [GitHub release](https://github.com/Quantyra/parity-degree-reduction/releases/tag/v0.3.0). Dan requested the next PaperMill revision after the recommendation to add S234, review the package and issue a new version. The13-page revision passed internal mathematical/source/claims review, build, actual all-page visual inspection and working/clean-export package checks. All24Zenodo archive files equal release commit5f55a6371b0cac793f8784ffabdb1936ea7152be byte for byte. The release attachment matches PDF SHA256b0601d8c3b33271d8c7921e7aa7aa0b9706fc925be1f7a576c1b13ab4fe4e5be. DOI resolution and author/ORCID/license/title/version/preprint metadata verify in the [receipt](../verification/publication-v0.3.0.json). The existing connection and concept DOI were reused; no existing tag was moved.

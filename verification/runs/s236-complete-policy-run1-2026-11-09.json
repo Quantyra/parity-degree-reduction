@@ -1,0 +1,32 @@
+{
+  "status": "STOP",
+  "run": "run1",
+  "started_utc": "2026-11-09T23:46:50.005724+00:00",
+  "technical_commit": "8762b1911ba078fe64e5560475dbdbaab94c8a69",
+  "source_sha256": {
+    "s236_policy.py": "46aa1f3c67f55e38ef945ded106c868a03176912d2a3f67121b630b6ac6cd5e6",
+    "check_s236_policy.py": "055ec4ae434a7fcb97ef4ec424fbfd958a1afb040e59a115a6fc6309057f328e",
+    "run_s236_bounded.py": "e2a5e929a36d674869f6c300d799d0227034db3b1af98a0ac05898b5fe4d2852"
+  },
+  "preregistration_commit": "506020208e960e474b22316ecd5d7cf5bfb83b0c",
+  "preregistration_sha256": "73918a66d814f1a7062c785a9f3ff1fe756f3fa87c3b5b6da9d7b949e8a8fa30",
+  "source_unchanged_during_run": true,
+  "limits": {
+    "timeout_seconds": 300,
+    "peak_working_set_bytes": 268435456,
+    "output_bytes": 8388608,
+    "memory_poll_seconds": 0.05
+  },
+  "stop_reason": null,
+  "exit_code": 1,
+  "wall_seconds": 0.7905542999505997,
+  "peak_working_set_bytes": 18554880,
+  "memory_samples": 15,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "ff9b8cf17b519b384c224008eb88dd3b853cdb33dc4550d0c4b0e1e7537c7add",
+  "output_bytes": 263,
+  "parse_error": null,
+  "completion": null,
+  "finished_cases": [],
+  "last_started_case": null
+}

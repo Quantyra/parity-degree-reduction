@@ -15,7 +15,7 @@
 \newcommand{\supp}{\operatorname{supp}}
 \title{Polynomial-time parity-query policies\\for explicit Boolean polynomials}
 \author{Daniel Fredriksen\\\small Quantyra Inc.\\\small\href{https://orcid.org/0009-0002-9123-7435}{ORCID: 0009-0002-9123-7435}}
-\date{November 9, 2026\\\small Preprint, version 0.3.0}
+\date{November 9, 2026\\\small Preprint, version 0.4.0}
 \makeatletter
 \renewcommand{\@maketitle}{%
   \begin{center}
@@ -27,7 +27,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Given the explicit squarefree algebraic normal form of a Boolean polynomial $p$ of degree $d$, we construct an on-demand randomized parity-query policy with polynomial total bit time and working space. For every fixed hidden input, with probability at least $1-\delta$, it evaluates $p$ correctly using $\min\{n,O(1+4^d\log s\log(nd))\}$ queries, where $s$ is the Fourier sparsity of $(-1)^p$. The polynomial runtime exponents are independent of $d$, and time, space, termination and the cap of $n$ queries hold on every random tape. Accuracy has an explicit precision interface. The construction uses structural results of Zhang and Moshkovitz--Zhu and needs no Fourier data or residual-degree oracle. A factor-partition recurrence groups Boolean variable collisions before exterior-algebra evaluation, supplying exact restricted top forms from the original source and a compact affine map. A spectral-norm gap justifies reading all input bits when the query allowance is already at least $n$; otherwise the recurrence's exponential tables have polynomial size. We retain a separately useful polynomial-time construction of one degree-reducing parity batch, valid on every coset on its success event. The recursive guarantee is per input, not a globally correct sampled tree. The stronger existential query bound and unrestricted XOR log-rank remain outside the result.
+Given the explicit squarefree algebraic normal form of a Boolean polynomial $p$ of degree $d$, we construct an on-demand randomized parity-query policy with polynomial total bit time and working space. For every fixed hidden input, with probability at least $1-\delta$, it evaluates $p$ correctly using $\min\{n,O(1+4^d\log s)\}$ queries, where $s$ is the Fourier sparsity of $(-1)^p$. Polynomial anchors in one variable and a bounded kernel-basis repair remove the extra logarithmic query factor from the previous version. The polynomial runtime exponents are independent of $d$; time, space, termination and the cap of $n$ queries hold on every random tape. A factor-partition recurrence supplies canonical restricted forms from the original source and a compact affine map, and a spectral-norm cutoff pays its exponential tables. The construction relies on attributed structural results of Zhang and Moshkovitz--Zhu, with Fourier data used only in the analysis. We retain a separate all-coset one-batch theorem and provide a complete implementation with bounded exact validation, including total and partial rank loss at specialization. The guarantee is randomized and per input; it does not construct a globally correct sampled deterministic tree or improve the known existential depth bound.
 \end{abstract}
 
 \section{Statement and relationship to prior work}
@@ -40,9 +40,9 @@ A parity query asks for a binary linear form in the unknown input. Independent e
 Degree throughout means the degree of the unique squarefree algebraic normal form (ANF) over $\F_2$, not real Fourier degree.
 
 The degree-reduction approach to parity decision trees predates this note~\cite{TWXZ}.
-Zhang~\cite{Z26} proves an existence bound of order $1+4^d\log s$, using a generic contraction radical and dimension-preserving descent. Remark~3.17 of that work expressly leaves construction time open. We replace the descent step by a directly computable binary intersection, accepting a logarithmic loss.
+Zhang~\cite{Z26} proves an existence bound of order $1+4^d\log s$, using a generic contraction radical and dimension-preserving descent. Remark~3.17 of that work expressly leaves construction time open. Earlier versions used a directly computable binary intersection with a logarithmic query loss. Here a bounded one-variable implementation of descent removes that loss while retaining polynomial computation. This addresses a randomized visited-path contract, not the construction of an everywhere-correct deterministic tree.
 The generic-rank comparison used below is due to Moshkovitz and Zhu~\cite{MZ}.
-The main contribution here is a uniformly polynomial-time complete visited-path construction. It combines exact canonical component evaluation with a query-preserving cutoff. A separately useful one-batch theorem has an all-coset guarantee. Both rely on the attributed structural interface; no priority claim for the combination is made.
+The main contribution here is a uniformly polynomial-time complete visited-path construction. It combines canonical component evaluation, rank-preserving polynomial sampling, valuation-budgeted basis repair and a query-preserving cutoff. The descent principle is attributed to Zhang; the explicit degree and repair budgets are essential to the computational guarantee. A separately useful one-batch theorem has an all-coset guarantee. Both rely on the attributed structural interface; no priority claim for the combination is made.
 
 For recursion, separate the original polynomial's encoding length $S_0$ from the accuracy input. An integer $b\ge2$ requests failure at most $\epsilon=2^{-b}$. For any desired $0<\delta<1$, choose $b=\max\{2,\lceil\log(1/\delta)\rceil\}$, so $\epsilon\le\delta$. A binary-fraction prefix through the first nonzero bit also suffices. An arbitrary numerator/denominator encoding of length $A$, if used instead, adds its own $\operatorname{poly}(A)$ parsing cost; it cannot be charged solely to $\log(1/\delta)$.
 
@@ -50,21 +50,21 @@ For recursion, separate the original polynomial's encoding length $S_0$ from the
 Given the original explicit ANF of degree $3\le d\le n$, precision $b\ge2$, and parity-query access to a hidden $x\in\F_2^n$, there is a randomized on-demand policy with the following properties. Set
 \[
  k=\lceil\log(8nd)\rceil,\qquad
- t_F=2k(b+1),\qquad t_A=b+\lceil\log(2d)\rceil.
+ t_A=b+\lceil\log(2d)\rceil.
 \]
 For every fixed $x$, with probability at least $1-2^{-b}$, the policy returns $p(x)$ correctly and uses at most
 \begin{equation}\label{eq:recursivequeries}
- \min\left\{n,\ 1+\left[1+\frac{k(2^{2d-1}-8)}3\right]\log B\right\}
- \le \min\left\{n,\ 1+\frac12\left[1+\frac{k(2^{2d-1}-8)}3\right]\log s\right\}
+ \min\left\{n,\ 1+\frac{2^{2d-1}-5}{3}\log B\right\}
+ \le \min\left\{n,\ 1+\frac{2^{2d-1}-5}{6}\log s\right\}
 \end{equation}
-queries, hence $\min\{n,O(1+4^d\log s\log(nd))\}$. On every random tape it terminates, asks at most $n$ queries, uses polynomial working space, and has bit time
+queries, hence $\min\{n,O(1+4^d\log s)\}$. On every random tape it terminates, asks at most $n$ queries, uses polynomial working space, and has bit time
 \[
  \operatorname{poly}(n,S_0,b),
 \]
 with a polynomial exponent independent of $d$. It uses neither Fourier information nor a residual-degree oracle and prints only the visited path. Original degree at most two is handled exactly in polynomial time by the leaf routine below.
 \end{theorem}
 
-Theorem~\ref{thm:recursive} strengthens the degree-parameterized runtime of version~0.2.0 while preserving its exact query and error bounds. The degree dependence in the number of queries remains exponential. We also retain the following all-coset batch result.
+Theorem~\ref{thm:recursive} removes version~0.3.0's factor $k$ multiplying $(2^{2d-1}-8)/3$ in the query coefficient, retaining uniform polynomial computation and the same error contract. The degree dependence in the number of queries remains exponential. We also retain the following all-coset batch result.
 
 \begin{theorem}\label{thm:main}
 Let $p\in\F_2[x_1,\ldots,x_n]$ be given by its $L$ distinct squarefree nonzero monomials, of actual degree $3\le d\le n$. Let $0<\delta\le1/4$ be rational and let $S$ be the encoding length, including $\delta$. Put
@@ -230,7 +230,7 @@ This order of operations matters. For $p=x_1x_2+x_1$ and $(x_1,x_2)=(z,z)$, the 
 An upper bound on the current degree suffices. The preceding evaluator is retained as an elementary baseline, but its degree-dependent cost does not establish uniform polynomial recursion. We next replace it with a canonical-component evaluator and then bound that evaluator's cost by a query-preserving cutoff.
 
 \subsection{Grouping Boolean collisions before exterior evaluation}
-Let $E$ be a characteristic-two field and $r\ge1$. Write
+Let $E$ be a commutative ring of characteristic two and $r\ge1$. Write
 \[
  \mathcal A_r=E[e_1,\ldots,e_r]/(e_1^2,\ldots,e_r^2),\qquad
  w_j=\sum_{i=1}^r h_{ij}e_i
@@ -270,11 +270,67 @@ Store exterior elements in $2^r$-entry arrays. Multiplication by a degree-one ve
 \[
  (vF)_I=\sum_{i\in I}v_iF_{I\setminus\{i\}},
 \]
-and costs $O(r2^r)$ field operations. There are at most $3^D$ pairs $(A,B)$ with $B\subseteq A$. Thus each source monomial costs
+and costs $O(r2^r)$ coefficient operations. There are at most $3^D$ pairs $(A,B)$ with $B\subseteq A$. Thus each source monomial costs
 \begin{equation}\label{eq:partitioncost}
  O\bigl(2^D[mr(D+1)+D+1]+3^D r2^r\bigr)
 \end{equation}
-primitive field/coefficient operations and $O(2^{D+r})$ field entries of space. Construct all $v_B$ explicitly; $r2^D\le2^{D+r}$ absorbs their storage. Process monomials and contraction entries sequentially. A constant monomial has zero $r$-form. For the policy, $D,r\le d$, so the exponential work and storage are bounded by $6^d$ and $4^d$, respectively. These costs are paid next.
+primitive coefficient operations and $O(2^{D+r})$ coefficient entries of space. Construct all $v_B$ explicitly; $r2^D\le2^{D+r}$ absorbs their storage. Process monomials and contraction entries sequentially. A constant monomial has zero $r$-form. For the policy, $D,r\le d$, so the exponential work and storage are bounded by $6^d$ and $4^d$, respectively. These costs are paid next.
+
+\section{Polynomial anchors and bounded descent}\label{sec:descent}
+Sample each coordinate of each of the $r-2$ anchors independently from
+\[
+ \mathcal A_k=\left\{\sum_{j=0}^{k-1}a_jt^j:a_j\in\F_2\right\}\subset\F_2(t).
+\]
+This is a set of $2^k$ distinct field elements; no irreducible-polynomial search is needed for the recursive policy. Apply Lemma~\ref{lem:partition} over $\F_2[t]$, with the last two directions the binary coordinate vectors. At exterior mask $I$, every coefficient has $t$-degree at most
+\[
+ |I\cap[r-2]|(k-1).
+\]
+Each new anchor slot contributes at most $k-1$, each binary slot contributes zero, and repeated slots vanish. Induction through the recurrence proves this bound even above the degree promise. Consequently every stored component coefficient and matrix entry has degree at most
+\begin{equation}\label{eq:entrydegree}
+ D_r=(r-2)(k-1).
+\end{equation}
+
+\subsection{Actual rank and a polynomial kernel basis}
+Let $N\in\F_2[t]^{m\times m}$ have entry degree at most $D$. Full-pivot Schur elimination over $\F_2(t)$ computes its actual rank $R_s$ and an attaining minor. Store reduced numerator/denominator pairs, reducing after every operation. After $j$ pivots, each active entry is
+\[
+ \frac{\det\begin{bmatrix}P_j&c\\ b&a\end{bmatrix}}{\det P_j},
+\]
+where $P_j$ is the original selected nonsingular minor. This follows from the block determinant identity; a nonzero next pivot enlarges that minor. Numerator and denominator degrees are at most $(j+1)D$ and $jD$. Scalar-operation temporaries have degree at most a constant multiple of $1+mD$, and polynomial Euclid reduces them. Thus $O((m+1)^3(1+mD)^3)$ bit work is a conservative rank/minor cost. The product of pivots telescopes to the corresponding original determinant, so determinant computation has the same controlled degrees.
+
+For $0<R_s<m$, reorder selected rows and columns as $[P\ Q]$, and form
+\begin{equation}\label{eq:kernelbasis}
+ G=\begin{bmatrix}-\operatorname{adj}(P)Q\\\det(P)I_\nu\end{bmatrix},
+ \qquad \nu=m-R_s.
+\end{equation}
+Undo the column permutation to recover original coordinates. The columns lie in the entire rational kernel: the selected rows span the rational row space. They are independent because their bottom minor is $\det(P)^\nu\ne0$. Every entry has degree at most $R_sD$. Compute the adjugate by sequential cofactor determinants; this elementary implementation has cost $O((m+1)^5(1+mD)^3)$. Use $G=I_m$ if $R_s=0$, and the empty basis if $R_s=m$. No generic-rank oracle or enumeration of all maximal minors is used.
+
+\subsection{Repair at zero with a fixed valuation budget}
+\begin{lemma}\label{lem:repair}
+Starting from~\eqref{eq:kernelbasis}, at most $\nu R_sD$ binary column-combination and exact division steps produce a polynomial basis of the same rational kernel whose value at zero has rank $\nu$. Entry degrees never increase. The computation takes $O((m+1)^5(1+mD)^3)$ bit work and $O((m+1)^2(1+mD))$ live bits, including rank and basis construction.
+\end{lemma}
+\begin{proof}
+While $G(0)$ has dependent columns, find nonzero $c\in\F_2^\nu$ with $G(0)c=0$ and choose $j$ with $c_j=1$. Replace only column $j$ by
+\begin{equation}\label{eq:repair}
+ G'_j=\frac{\sum_i c_iG_i}{t}.
+\end{equation}
+The numerator has zero constant term in every coordinate, so division is an exact coefficient shift. The replacement remains in $\ker N$, since multiplication by $t$ is cancellable. The column transformation has rational determinant $1/t$; independence and the rational span are preserved. Binary coefficients and division ensure no degree growth.
+
+Fix the $\nu$ rows that initially gave the bottom minor in~\eqref{eq:kernelbasis}, and denote its determinant by $M(t)$. In each repair, determinant multilinearity gives $M'=M/t$: all terms except $c_j$ duplicate another column and vanish. Thus the nonnegative valuation $v_t(M)$ drops by exactly one. Initially
+\[
+ v_t(M)=\nu v_t(\det P)\le\nu R_sD.
+\]
+If $G(0)$ remains dependent then every maximal minor vanishes at zero, so the fixed minor still has positive valuation and another repair is possible. Termination follows within the stated budget; it may occur before this particular minor has valuation zero.
+
+Binary dependence costs $O((m+1)^3)$ per step, and a polynomial column combination and shift cost $O((m+1)^2(1+mD))$. Multiplying by the repair budget and adding the rank/cofactor work gives the stated conservative bound. The fixed minor is an analysis potential, not a determinant recomputed by the implementation. Store reduced polynomial arrays and sequential cofactor workspaces; their degrees give the stated space bound.
+\end{proof}
+
+Set $V=G(0)$ and $U=\operatorname{im}_{\F_2}V$. Suppose the selected sample has full generic rank. Lemma~\ref{lem:special}, used with $E=\F_2(t)$, gives the strong identity on its rational kernel. This use specializes polynomial identities on a pivot chart with nonzero determinant in $\F_2(t)$; it is not a homomorphism of an arbitrary multivariate function field. Every repaired column still belongs to that kernel. Hence
+\[
+ T(e_i,G_{j_1}(t),\ldots,G_{j_{r-1}}(t))=0
+\]
+is a polynomial identity with constant binary coefficients. Evaluation at zero preserves it, giving $T(\F_2^m,U^{r-1})=0$. Lemma~\ref{lem:repair} supplies $\dim U=m-R_s$, so the codimension is exactly $R_s$, without a factor $k$. The degree-$r$ coefficients vanish on every affine coset by the top-difference characterization, giving degree at most $r-1$.
+
+This argument makes no assertion that $N(0)$ retains rank or that $U=\ker N(0)$. In general that kernel is larger and fails the degree-reduction property. For arbitrary sampled matrices the repair and its costs remain valid; the strong-identity conclusion is used only under the good-history/full-generic-rank event. Zhang's valuation descent~\cite[Lemma~3.14]{Z26} motivates the operation. One variable, bounded coefficient degrees and the explicit potential above supply the computational budget.
 
 \subsection{A query-preserving cutoff}\label{sec:cutoff}
 \begin{lemma}\label{lem:gap}
@@ -284,45 +340,41 @@ Every nonaffine Boolean phase has Fourier spectral norm at least two.
 Choose two indices $i,j$ in a nonzero monomial of degree at least two. The mixed Boolean derivative $D_iD_jp$ is nonzero: distinct monomials containing $i,j$ give distinct residual monomials. Some binary assignment of the other variables makes it one, since a nonzero squarefree polynomial cannot vanish on the whole Boolean cube. Restriction at that assignment leaves $x_ix_j$ plus affine terms. Its phase has four Fourier coefficients of magnitude $1/2$ and norm two. Restriction groups Fourier coefficients with signs, so it cannot increase their $\ell_1$ norm. Thus $B\ge2$.
 \end{proof}
 
-For original $d\ge3$ put $H_d=(2^{2d-1}-8)/3$ and $Q_{\min}=2+kH_d$. The spectral allowance in~\eqref{eq:recursivequeries} is $Q_B=1+(1+kH_d)\log B\ge Q_{\min}$. Compute the threshold from $n,d$ before field construction or any exponential table allocation. If $Q_{\min}\ge n$, read all $n$ coordinate parities and evaluate the original $p$; this is exact and uses $n=\min(n,Q_B)$ queries. Otherwise
+For original $d\ge3$ put $H_d=(2^{2d-1}-8)/3$ and $Q_{\min}=2+H_d$. The spectral allowance in~\eqref{eq:recursivequeries} is $Q_B=1+(1+H_d)\log B\ge Q_{\min}$. Compute the threshold from $n,d$ before any polynomial-matrix or exponential table allocation. If $Q_{\min}\ge n$, read all $n$ coordinate parities and evaluate the original $p$; this is exact and uses $n=\min(n,Q_B)$ queries. Otherwise
 \begin{equation}\label{eq:cutoff}
- 4^d<6(n-2)/k+16\le6n+16.
+ 4^d<6n+4.
 \end{equation}
-Only this latter branch invokes the recurrence and recursion. Threshold integers have $O(d+\log(k+1))$ bits, even when their values exceed $n$. The test uses neither $B$ nor a residual-degree oracle. Original $d\le2$ uses the exact leaf instead.
+Only this latter branch invokes the recurrence and recursion. Threshold integers have $O(d)$ bits, even when their values exceed $n$. The test uses neither $B$ nor a residual-degree oracle. Original $d\le2$ uses the exact leaf instead.
 
 \section{The recursive policy and its correctness}\label{sec:recursion}
-Use the parameters of Theorem~\ref{thm:recursive} throughout this section. Apply the cutoff first. In the recursive branch construct one verified field by the earlier irreducibility test, now with cap $t_F$. The counting argument gives
-\[
- \Pr[\text{field failure}]\le e^{-(b+1)}\le 2^{-(b+1)}=\epsilon/2.
-\]
-On failure output zero with a failure flag. Conditional on any verified field, consider a stage with current degree at most $r$. If the degree is exactly $r$, the structural interface and Lemma~\ref{lem:special} apply in dimension $m$; if smaller, its form is zero and generic rank $R=0$. One nonzero generic minor has degree at most $m(r-2)\le nd$. A uniform anchor sample therefore misses generic rank with probability at most $nd/2^k\le1/8$.
+Use the parameters of Theorem~\ref{thm:recursive} and apply the cutoff first. For a fixed history with degree at most $r$, choose a nonzero generic minor for analysis only. Its total anchor degree is at most $m(r-2)\le nd$. The finite-set polynomial zero bound applies over $\F_2(t)$ to independent choices from $\mathcal A_k$, so one sample misses generic rank with probability at most $nd/2^k\le1/8$. This tests whether the determinant is the zero polynomial in $t$, not whether it vanishes at zero. Sharing the indeterminate does not couple the independently sampled coordinate values. Larger minors vanish identically before substitution, so no sampled rank exceeds the generic rank $R$; $R=0$ succeeds surely.
 
-Compute exactly $t_A$ independent candidate contractions by Lemma~\ref{lem:partition}, and keep an exact row basis from a candidate of largest observed rank, with deterministic tie breaking. Every sampled rank is at most $R$, since all larger minors vanish identically. If any sample attains $R$, the selected one does too. Hence
+Compute exactly $t_A$ candidate matrices by Lemma~\ref{lem:partition}, find their actual ranks over $\F_2(t)$ and keep the first maximum-rank candidate with its attaining minor. If any sample attains $R$, the selected one does too. Hence
 \begin{equation}\label{eq:stagefailure}
  \Pr[\text{selected rank}<R]\le8^{-t_A}\le2^{-t_A}\le\epsilon/(2d).
 \end{equation}
-This is probabilistic amplification, not a certificate of generic rank. No unbounded retry is used. The field degree is independent of $b$; fixed repetition carries the accuracy cost. The exact evaluator introduces no additional failure probability.
+This is amplification, not an executable certificate of generic rank. Apply the bounded descent only to the selected matrix. There is no unbounded retry, field-construction failure, sampled degree-drop test or exponential coset verification in the policy. The exact evaluator introduces no additional probability loss.
 
 \subsection{Lifting queries and updating the affine map}
-Binary elimination constructs $L_C$ with $L_CC=I_m$. To ask for $\lambda z$, ask the allowed original-input query $(\lambda L_C)x$ and add the known offset $(\lambda L_C)a$. Expand the selected field row basis into binary equations and row-reduce to independent rows $H$, of rank $\rho$. The answers determine $Hz=y$. Compute a solution $z_0$ and a nullspace basis $V$, then replace
+Binary elimination constructs $L_C$ with $L_CC=I_m$. To ask for $\lambda z$, ask the allowed original-input query $(\lambda L_C)x$ and add the known offset $(\lambda L_C)a$. From the repaired basis $V$, compute independent binary equations $H$ with $\ker H=\operatorname{im}V$ and rank $\rho=R_s$. The answers determine $Hz=y$. Compute a solution $z_0$ and use the repaired basis $V$ to replace
 \begin{equation}\label{eq:affineupdate}
  a\leftarrow a+Cz_0,\qquad C\leftarrow CV,\qquad m\leftarrow m-\rho.
 \end{equation}
 All answer vectors are consistent because $H$ has full row rank. The new columns remain independent and describe exactly the remaining input set. The map uses at most $n+n^2$ bits, independent of the number of previous batches. Even on a bad rank history, the true $x$ remains in this set.
 
-On a good stage, binary intersection and the vanishing identity lower the degree on every coset to at most $r-1$. The same original source and the updated map therefore supply the next form through Lemma~\ref{lem:partition}. After two stages the map is $a+Cz_0+CVz_1$, with linear part $CVV_1$ and degree at most $r-2$. This proves arbitrary repeated composition without expanded ANFs or actual-degree detection.
+On a good stage, repaired specialization and the vanishing identity lower the degree on every coset to at most $r-1$. The same original source and the updated map therefore supply the next form through Lemma~\ref{lem:partition}. After two stages the map is $a+Cz_0+CVz_1$, with linear part $CVV_1$ and degree at most $r-2$. This proves arbitrary repeated composition without expanded ANFs or actual-degree detection.
 
 \subsection{Algorithm and conditional history}
 \begin{enumerate}
 \item Normalize the original ANF, determine its degree $d$, and retain it throughout. If $d\le2$, use the exact leaf routine below.
-\item Compute $Q_{\min}$. If $Q_{\min}\ge n$, read all coordinates, evaluate $p$ and return. Otherwise construct the verified field under cap $t_F$. On success set $a=0$, $C=I_n$ and $m=n$.
-\item For scheduled $r=d,d-1,\ldots,3$: if $m=0$, return $p(a)$. Otherwise compute $t_A$ independent candidate matrices by~\eqref{eq:blockvectors}--\eqref{eq:component}; retain a maximum-rank row basis; expand and reduce its binary equations; ask the lifted parities; and apply~\eqref{eq:affineupdate}.
+\item Compute $Q_{\min}$. If $Q_{\min}\ge n$, read all coordinates, evaluate $p$ and return. Otherwise set $a=0$, $C=I_n$ and $m=n$.
+\item For scheduled $r=d,d-1,\ldots,3$: if $m=0$, return $p(a)$. Otherwise compute $t_A$ independent candidate matrices by~\eqref{eq:blockvectors}--\eqref{eq:component}; retain a maximum-rank matrix and attaining minor; construct and repair its polynomial kernel basis; compute independent binary equations; ask the lifted parities; and apply~\eqref{eq:affineupdate}.
 \item Apply the quadratic/affine leaf routine to the current source evaluator and return its bit.
 \end{enumerate}
-Fix the hidden $x$. Condition on successful field construction and on the complete history of earlier successful stages. The current field, $a,C,u$ are fixed, the degree promise follows inductively, and future anchor bits remain independent and uniform. Equation~\eqref{eq:stagefailure} applies to this conditional history. A first-failure decomposition over at most $d-2$ visited stages yields
+Fix the hidden $x$. Condition on the complete history preceding the first failed rank stage. The current $a,C,u$ are fixed, the degree promise follows inductively, and future anchor bits remain independent and uniform. Equation~\eqref{eq:stagefailure} applies to this conditional history. A first-failure decomposition over at most $d-2$ visited stages yields
 \begin{equation}\label{eq:totalfailure}
- \Pr[\text{field failure or a visited bad stage}]
- \le\epsilon/2+(d-2)\epsilon/(2d)\le\epsilon.
+ \Pr[\text{a visited bad rank stage}]
+ \le(d-2)\epsilon/(2d)\le\epsilon.
 \end{equation}
 On its complement the final degree is at most two, so the leaf is exact. On other histories all loops, eliminations and affine updates still terminate. Only correctness, the propagated degree promise and the smaller query estimate may fail. This proof concerns every fixed input separately. It does not union-bound over an entire tree or supply an all-input correct random seed.
 
@@ -346,34 +398,52 @@ Computing these linear terms includes squares reducing to linear terms. Query th
 On a good history, $\|\widehat{(-1)^u}\|_1=2^t$. Indeed, each independent two-bit quadratic pair has four Fourier coefficients of magnitude $1/2$ and norm two; affine characters shift frequencies and invertible linear changes permute them. Affine restriction cannot increase spectral norm: it groups original Fourier coefficients with signs, so the triangle inequality applies. Thus the leaf costs at most $1+\log B$ with $B$ from the original input.
 
 \subsection{Total queries}
-On the good event, stage $r$ uses at most $k2^{2r-3}\log B$ queries, including zero when the actual degree is smaller than $r$. Summing with the leaf gives
+On the good event, stage $r$ uses at most $2^{2r-3}\log B$ queries, including zero when the actual degree is smaller than $r$. Summing with the leaf gives
 \[
- 1+\left[1+k\sum_{r=3}^d2^{2r-3}\right]\log B
- =1+\left[1+\frac{k(2^{2d-1}-8)}3\right]\log B.
+ 1+\left[1+\sum_{r=3}^d2^{2r-3}\right]\log B
+ =1+\frac{2^{2d-1}-5}{3}\log B.
 \]
 Every batch removes exactly as many dimensions as queries asked, and the leaf uses at most the remaining dimension. Hence the cap $n$ holds on all tapes. Taking the minimum and using $B\le\sqrt{s}$ proves~\eqref{eq:recursivequeries}. The cutoff branch already satisfies the same bound exactly. The additive one covers a nonconstant parity with $s=1$.
 
 \section{Total recursive computation and space}\label{sec:resources}
-Here $S_0$ is the original polynomial encoding length and $L\le S_0+1$ is the normalized monomial count. Index checks and duplicate cancellation use repeated scans in polynomial time and $O(S_0)$ storage, without an $L\times n$ incidence table. Put $V_0=n^2+(d+1)(S_0+n)+1$; this bounds one binary source evaluation and affine transformation. On the recursive branch, a conservative per-entry primitive operation bound from~\eqref{eq:partitioncost} is
+Let $S_0$ be the original sparse encoding length, $L\le S_0+1$ its normalized monomial count, and put
+\[
+ P_0=n+S_0+b+2,\quad \Delta=d(k-1),\quad \Lambda=1+n\Delta,
+ \quad V_0=n^2+(d+1)(S_0+n)+1.
+\]
+Normalization by repeated scans is polynomial; $V_0$ bounds a source evaluation with its affine transformation. From~\eqref{eq:partitioncost}, a per-entry coefficient-operation allowance is
 \[
  E_0=O\bigl(S_0+(L+1)[2^d(nd(d+1)+d+1)+d6^d]\bigr).
 \]
-Field multiplication/reduction costs $O(k^2)$ bits and inversion $O(k^3)$. There are at most $n^2$ entries per sample and $dt_A$ samples, each with $O(n^3k^3)$ elimination cost. Binary expansion/elimination costs $O(kn^3)$ per level; left inverses, lifted queries, coset solutions and affine updates fit this allowance. The leaf costs $O(n^2V_0+n^4)$. For $P=n+S_0+b+2$, the total before sequential-access/control overhead is
+Schoolbook binary-polynomial arithmetic of degree at most $\Delta$ costs $O((\Delta+1)^2)$ per coefficient operation. Include every sampled matrix, normalized rational elimination, selected adjugate and repair, binary equations, query lifting, affine update and exact leaf. With indexed bit storage, a conservative total is
 \begin{align}
- T_0=O\bigl(&P^4+t_Fk^4+dt_A[n^2k^2E_0+n^3k^3]\label{eq:recursivebits}\\
-            &+dkn^3+n^2V_0+n^4\bigr).\nonumber
+ T_0=O\bigl(&P_0^4+dt_A[n^2(\Delta+1)^2E_0+(n+1)^3\Lambda^3]\label{eq:recursivebits}\\
+ &+d(n+1)^5\Lambda^3+d(n+1)^3+n^2V_0+n^4\bigr).\nonumber
 \end{align}
-The first term covers normalization, threshold arithmetic and the explicit precision interface. All query descriptions together have at most $n^2$ bits and answers at most $n$ bits; they are charged, with oracle calls counted separately.
+The first term pays normalization, threshold/precision arithmetic and reading. Query descriptions total at most $n^2$ bits and answers at most $n$ bits; constructing them is charged here while oracle calls are counted separately.
 
-Keep one monomial table, one entry accumulator, one candidate matrix, one best row basis, anchors, binary workspaces and old/new affine maps. All monomials, entries and samples are processed sequentially. A bit-space bound including field data and counters is
+Stream source monomials, contraction entries and candidates; retain one candidate, one best matrix, bounded rational/cofactor workspaces, one polynomial basis, affine maps and counters. A live bit-space bound is
 \begin{equation}\label{eq:recursivespace}
- W=O(S_0+kn^2+ndk+k4^d+k^2+b+n^2+d+1).
+ W=O\bigl(S_0+(n+1)^2\Lambda+(\Delta+1)4^d+ndk+n^2+b+d+1\bigr).
 \end{equation}
-No full residual ANF, branch history or random tape is stored. The total random-bit cap remains $t_Fk+t_Akn(d-2)(d-1)/2$, and is zero for the read-all and original-degree-at-most-two branches.
+Cofactor determinants are sequential. No full residual ANF, decision tree or random tape is stored. The random-bit cap is
+\[
+ t_Akn\sum_{r=3}^d(r-2)=t_Akn(d-2)(d-1)/2,
+\]
+with zero random bits in the read-all and original low-degree branches.
 
-By~\eqref{eq:cutoff}, $4^d=O(P)$ and $6^d\le(4^d)^2=O(P^2)$ wherever these arrays are allocated. With $d,n,L,k,t_A=O(P)$ and $t_F=O(P^2)$, the displayed bounds give $E_0=O(P^5)$, $T_0=O(P^{11})$ and $W=O(P^3)$. An ordinary sequential bit-Turing implementation can scan the $O(W)$-bit workspaces to implement indexed access and bounded counters. The conservative overhead $W^2(T_0+1)$ is $O(P^{17})$; $O(P^{20})$ is a loose common time bound covering preliminary and endpoint branches as well. We do not claim these exponents are optimized.
+The cutoff gives $4^d=O(P_0)$ and $6^d\le16^d=O(P_0^2)$ before these arrays are allocated. Also $n,d,L,k,t_A=O(P_0)$, $\Delta=O(P_0^2)$, $\Lambda=O(P_0^3)$ and $E_0=O(P_0^5)$. Thus~\eqref{eq:recursivebits}--\eqref{eq:recursivespace} imply $T_0=O(P_0^{15})$ and $W=O(P_0^5)$. Sequential scans can simulate indexed access with conservative overhead $W^2(T_0+1)$; $O(P_0^{28})$ is a loose common sequential bit-time bound including controls and endpoint branches. These exponents are not claimed optimal or practical.
 
-All caps depend on original $d,n,b$, not successful samples. On bad histories the component identity still defines a finite operation, $r\le d$, $m\le n$ and the original cutoff remain valid. Hence the time, space and termination bounds hold on every tape. An arbitrarily encoded rational accuracy input of length $A$ adds its separately charged polynomial parsing cost. This completes Theorem~\ref{thm:recursive}. There is no variance or approximation loss; only capped field search and rank specialization contribute error.
+On bad histories the canonical component evaluator remains defined with the same coefficient-degree bound. Descent accepts every bounded-degree matrix; all loops have the same caps and the original cutoff is unchanged. Time, space and termination therefore hold on every tape. Separately encoded arbitrary rational precision of length $A$ adds its own polynomial parsing cost. This completes Theorem~\ref{thm:recursive}. There is no variance, normalization or approximation loss; only rank sampling contributes error.
+
+\subsection{Accounting for the archived implementation}
+The complete implementation retains the original source as bit masks and caches factor subsets and anchor components. It does not satisfy the exact streamed expression~\eqref{eq:recursivespace} without an extra charge. In addition, allow
+\begin{equation}\label{eq:cachedspace}
+ O\bigl(nL+L2^d(n+dk+1)+n^3+dt_A\log(n+d+k+b+2)\bigr)
+\end{equation}
+bits for mask representation, caches, a mask-list quadratic leaf and retained path summaries. Query transcripts use $O(n^2)$ bits. The cutoff absorbs~\eqref{eq:cachedspace} into $O(P_0^4)$, hence the common $O(P_0^5)$ space bound. Bit-mask source evaluations cost $O(n^2+nL)$, giving $O(n^4+n^3L)$ for the leaf; normalization can be charged $O(nL^2)$ without average-case hashing assumptions. Cache preparation and these extra costs fit the common polynomial time bound.
+
+The read-only reference observer receives intermediate states and returns no information used by the policy. Its truth tables, explicit residual ANFs and determinant enumeration are separately bounded test work and are not included in the general polynomial policy claim. An executable implementation and finite tests do not constitute a machine-checked refinement proof.
 
 \section{Controls and limitations}
 Write $x_I=\prod_{i\in I}x_i$. Four exact controls are:
@@ -404,7 +474,7 @@ The extension-field rank is two and the kernel is $E(1,\alpha,0)$, but its binar
 Zero anchors give rank zero and can fail degree reduction; these are covered by the exceptional event.
 
 The estimate is nonvacuous when
-$4^d\log s\log(nd/\delta)=o(n)$.
+$4^d\log s=o(n)$.
 This regime need not arise by adjoining unused variables: the product of three parities on disjoint growing variable blocks depends on every variable, has degree three, sparsity eight and at most $n^3$ ANF monomials.
 The input cost remains paid.
 
@@ -418,12 +488,45 @@ Quartic anchors $e_1,e_2$ give rank four, with pairs $(3,4)$ and $(5,6)$. This i
 \]
 The cubic contraction at $e_3$ has generic rank two, since its alternating three-dimensional block has rank at most two. Querying $z_4,z_5$, equivalently $x_8,x_9$, leaves $c w_1w_2+(x_8x_9)w_3$, of degree at most two for every answer branch. This control illustrates the general composition proof; finite agreement is not used as its substitute.
 
-The recursive construction stores a compact affine map rather than a residual ANF. Its subset work is used only after the cutoff makes that work and storage polynomial. The known existential query bound is better by a factor $O(\log(nd))$; dimension-preserving descent and the construction of a globally correct deterministic tree remain different obligations. Reading all $n$ hidden bits already permits direct evaluation of the explicit $p$. Our result concerns fewer parity queries with paid computation, not faster unrestricted evaluation or a general quantum simulator.
+The recursive construction stores a compact affine map rather than a residual ANF. Its subset work is used only after the cutoff makes that work and storage polynomial. The policy now matches the retained existential query scale, while construction of a globally correct deterministic tree remains a different obligation. Reading all $n$ hidden bits already permits direct evaluation of the explicit $p$. Our result concerns fewer parity queries with paid computation, not faster unrestricted evaluation or a general quantum simulator.
 
 Earlier parity-tree recursion is due to Tsang--Wong--Xie--Zhang~\cite{TWXZ}. Zhang's quantum protocol~\cite{Z14} assumes an efficiently encoded/decoded Fourier spectrum, a different access model and output. Hrube\v{s}'s multilinearization hardness result~\cite{H15}, Theorem~7(ii), concerns uniformly small arithmetic representations of whole multilinearizations. It does not rule out our exponential-in-degree component evaluator combined with the query-preserving cutoff; no compact representation of the whole multilinearization is produced. Determinantal sieving~\cite{EKW} also uses characteristic-two algebra with field evaluation access, but multilinear or odd support differs from Boolean reduction: $z^2$ reduces to $z$ on the Boolean cube. The factor-partition identity supplies that missing interface before exterior evaluation. These comparisons explain the input distinction; they do not establish novelty. Unrestricted XOR log-rank, stronger AA bounds and BPP versus BQP are not resolved.
 
+\subsection{Complete-policy validation and rank-collapse controls}
+The archive includes a complete implementation and separate exact reference. An initial full-policy campaign completed 21 trajectories: 19 independently certified good-event paths returned the correct result within the spectral cap; two deliberately bad coefficient tapes returned incorrect results within the unconditional caps, as allowed by the Monte Carlo contract. It exercised repeated reductions, non-coordinate queries, a nonzero affine offset and nonvacuous kernel identities. Its final aggregate coverage gate failed because no selected matrix lost rank at zero. The 3,868 basis repairs did not imply that distinct matrix-rank event. This campaign remains recorded as STOP, preceded by a preserved startup import failure and its single permitted correction.
+
+A separately preregistered check then covered total and partial rank collapse using the unchanged policy. For the first fixture, index coordinates from zero and put
+\[
+ A=x_0+\cdots+x_3,\quad B_1=x_4+\cdots+x_7,\quad
+ C_1=x_8+\cdots+x_{12},\quad p=AB_1C_1.
+\]
+The anchor $t(e_0+e_4)$ gives
+\[
+ N(t)=t[(A+B_1)\otimes C_1+C_1\otimes(A+B_1)].
+\]
+Its generic rank is two and $N(0)$ has rank zero. The repaired kernel is $\ker(A+B_1,C_1)$, of dimension 11. On a coset $A+B_1=a,C_1=c$, Boolean reduction gives $p=c(1+a)A$, of degree at most one. The unrepaired basis has rank zero, whereas the whole kernel of $N(0)$ retains the original cubic; both shortcuts fail their required contracts.
+
+For the second fixture let $n=128$ and
+\[
+ p=x_0x_1x_2x_3+x_4x_5x_6x_7,\qquad
+ h_1=e_0+e_4,\quad h_2=e_1+te_5.
+\]
+The only nonzero contraction entries are $N_{23}=N_{32}=1$ and $N_{67}=N_{76}=t$. Generic rank is four (each disjoint volume contraction has rank at most two), but rank at zero is two. The entries have polynomial content one, so this is not solely a common scalar factor. Rational-kernel descent fixes coordinates 2,3,6,7 and returns dimension 124; the entire kernel at zero has dimension 126 and leaves the second quartic intact. Every valid answer coset instead has degree at most two.
+
+\begin{center}
+\begin{tabular}{lrrrr}
+\hline
+Fixture & Matrix ranks & Repaired dimension & Repairs & Queries\\
+\hline
+Full-support cubic & $2\to0$ & 11 & 22 & 3\\
+Disjoint quartics & $4\to2$ & 124 & 248 & 7\\
+\hline
+\end{tabular}
+\end{center}
+Both complete trajectories passed: outputs 1 and 0 at hidden bit masks 273 and 255. Their original spectral norms are $5/2$ and $121/16$, with exact comparisons proving $Q_B<n$ in each case. All 6,523 assertions passed, including 15 sampled matrices, 21 answer cosets and 21 coordinate-derivative restrictions. Four negative-control predicates reject the unrepaired basis and naive whole kernel at zero. One bounded run used 14.196 seconds and 22,769,664 bytes observed peak working set under 120 seconds and 128 MiB. These measurements describe the retained run, not asymptotic complexity or a random success-frequency estimate. Quartic padding serves only to enter the informative branch. The earlier STOP remains unchanged; this separate check closes its specific missing coverage.
+
 \paragraph{Disclosure and status.}
-OpenAI Codex assisted with derivation, source comparison, drafting and document preparation. Internal analytic checks cover the mathematics, sources, claims and document package. A single preregistered exact diagnostic compared the factor-partition evaluator with truth-table Boolean reduction and determinant evaluation on 256 fixtures over $\F_4$, all passing. It included the two collision witnesses, constants, cancellations, zero/repeated directions and actual degree above/below the scheduled order. This is an evaluator diagnostic, not a complete-policy implementation, performance benchmark or proof of asymptotic correctness. No independent peer review or formal certification is claimed. This preprint presents attributed algorithmic corollaries; priority and publication significance are not established.
+OpenAI Codex assisted derivation, source comparison, implementation, drafting and document preparation. Review across mathematical, source, claims and artifact lenses is internal and AI-assisted. The archive preserves the earlier 256-fixture component diagnostic and the complete-policy evidence with failures, negative controls and provenance. No research experiment was rerun for this publication. General statements follow from the analytic proof and attributed structural imports, not finite agreement. No independent peer review or formal certification is claimed; novelty remains unestablished. PaperMill's queued certification covers the full revised theorem and its dependencies, including bit costs and the distinction between mathematical and executable algorithms.
 
 \clearpage
 \begin{thebibliography}{9}
