@@ -1,10 +1,12 @@
 # Publication and archive record
 
-## Version0.4.0: authorized candidate
+## Version0.4.0: published and verified
 
-Dan approved the consolidated revision incorporating the improved query bound, complete implementation, retained validation, PaperMill scope update and a new DOI version. Candidate decision: PUBLISH after working-tree and clean-export package checks pass; the internal final document review is recorded in REVIEW.md. The16-page manuscript removes the recursive logarithmic query loss while retaining polynomial resources, explicit inputs and per-input probability limits. Cache costs and the historical STOP/separate PASS distinction are explicit. No research experiment or formal build is rerun for publication.
+State: **PUBLISHED AND VERIFIED**, November9,2026 Hawaii (November10UTC). [Version DOI10.5281/zenodo.24095400](https://doi.org/10.5281/zenodo.24095400), [concept DOI10.5281/zenodo.24092921](https://doi.org/10.5281/zenodo.24092921), [GitHub release](https://github.com/Quantyra/parity-degree-reduction/releases/tag/v0.4.0), [actual archive receipt](../verification/publication-v0.4.0.json). All37files equal frozen commit9ce510fb278bfc8350f7f841ce9ab36bff354794 byte for byte. The release PDF matches SHA25691787df9a16b5def8372487dc6bd13a5357e0a5a40fce7f1c620d2b9c41ed1be. DOI resolution, title/version, author/affiliation/ORCID, preprint/open-access/license metadata and archive checksum verify.
 
-Use [release notes](RELEASE-NOTES-v0.4.0.md). Freeze the reviewed package, publish a new v0.4.0 tag/release through the existing Zenodo connection, then verify the actual archive and DOI. Preserve all prior tags, receipts and the existing concept DOI10.5281/zenodo.24092921. No new DOI is guessed. Post-release receipt/citation updates remain outside the immutable release archive.
+Dan approved the consolidated S235-S237 revision, internal review, PaperMill scope update and a new DOI version. Decision PUBLISH was recorded for the exact frozen candidate before release. Working and clean-export package checks, clean build and actual all16-page inspection pass. [Release notes](RELEASE-NOTES-v0.4.0.md) describe the improved query bound, polynomial computation and source-preserving implementation/evidence package. S236 STOP and separate S237 PASS remain distinct. No research rerun, independent peer review or formal certification is claimed. PaperMill S020 remains queued for the entire revised manuscript; current jobs and prior tags/receipts are preserved.
+
+The existing Zenodo connection and concept DOI were reused. This receipt and DOI/citation updates are post-release records outside the immutable archive they verify. Remaining work: queued full certification; none for this version's publication.
 
 ## Version 0.3.0
 

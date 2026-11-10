@@ -1,10 +1,10 @@
 # Polynomial-time parity-query policies for explicit Boolean polynomials
 
-**Daniel Fredriksen ? Quantyra Inc. ? [ORCID 0009-0002-9123-7435](https://orcid.org/0009-0002-9123-7435)**
+**Daniel Fredriksen | Quantyra Inc. | [ORCID 0009-0002-9123-7435](https://orcid.org/0009-0002-9123-7435)**
 
-[Manuscript PDF](manuscript/main.pdf) ? [LaTeX source](manuscript/main.tex) ? [Review and scope](REVIEW.md) ? [Publication record](publication/README.md)
+[Manuscript PDF](manuscript/main.pdf) | [LaTeX source](manuscript/main.tex) | [Review and scope](REVIEW.md) | [Publication record](publication/README.md)
 
-**Version 0.4.0: prepared for the authorized reviewed release.** This revision removes the extra logarithmic query factor and includes the complete implementation and retained validation. A new version DOI will be recorded only after actual ingestion. The published [v0.3.0](https://doi.org/10.5281/zenodo.24093687) and earlier versions remain immutable under [concept DOI10.5281/zenodo.24092921](https://doi.org/10.5281/zenodo.24092921).
+**Version0.4.0: PUBLISHED AND VERIFIED.** [Version DOI10.5281/zenodo.24095400](https://doi.org/10.5281/zenodo.24095400), [release/PDF](https://github.com/Quantyra/parity-degree-reduction/releases/tag/v0.4.0), [archive receipt](verification/publication-v0.4.0.json). All37archived files match frozen commit9ce510fb278bfc8350f7f841ce9ab36bff354794. This16-page revision removes the extra logarithmic query factor and includes the complete implementation and retained validation. Earlier versions remain immutable under [concept DOI10.5281/zenodo.24092921](https://doi.org/10.5281/zenodo.24092921). The DOI/citation receipt is a post-release record outside the immutable archive.
 
 For every explicit squarefree Boolean ANF p of original degree d>=3, and each fixed hidden input x, the randomized on-demand policy jointly returns p(x) correctly and uses at most min(n,1+[(2^(2d-1)-5)/3]log2 B) queries with probability at least1-2^-b. Here B is the Fourier spectral norm of (-1)^p, used only in analysis. Since B<=sqrt(s), this is min(n,O(1+4^d log s)) queries. Total bit time and live space are polynomial in n, original encoding length and b with fixed exponents independent of d. All random tapes terminate and ask at most n queries. Exact low-degree endpoints and separately charged arbitrary-rational precision parsing remain explicit.
 
